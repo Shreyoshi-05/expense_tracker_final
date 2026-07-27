@@ -1,5 +1,6 @@
 import { giveRes } from "../err/err.js";
 import { User } from "../table/userTable.js";
+import bcrypt from "bcrypt";
 
 export const postUserController = async (req, res) => {
   try {
@@ -9,13 +10,17 @@ export const postUserController = async (req, res) => {
       return giveRes(req, res, 400, "all fileds needed", false);
     }
 
-    const user = await User.create({ name, email, password });
+    const hashpass = await bcrypt.hash(password,10)
+
+    const user = await User.create({ name, email, password:hashpass });
 
     return giveRes(req, res, 200, "user had been added", user, true);
   } catch (error) {
     return giveRes(req, res, 500, error.message, false);
   }
 };
+
+
 
 export const loginUserController = async (req, res) => {
   try {
@@ -26,9 +31,10 @@ export const loginUserController = async (req, res) => {
     if(!user){
       return giveRes(req, res, 400, "email is not found",null,  false);
     }
+    const isMatch = await bcrypt.compare(password,user.password);
 
-    if(user.password !== password){
-      return giveRes(req, res, 400, "password is not found",null, false);
+    if(!isMatch){
+      return giveRes(req, res, 400, "incorrect password",null, false);
     }
 
      return giveRes(req, res, 200, "user successfully loged in" ,null, true);
