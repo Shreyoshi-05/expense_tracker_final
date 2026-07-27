@@ -1,6 +1,7 @@
 import express from "express";
-import { postUserController } from "../controller/user.js";
+import { loginUserController, postUserController } from "../controller/user.js";
 
 export const userRouter = express();
 
-userRouter.post("/user", postUserController)
+userRouter.post("/user", postUserController);
+userRouter.post("/userlogin", loginUserController);

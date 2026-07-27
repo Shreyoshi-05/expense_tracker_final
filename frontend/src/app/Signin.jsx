@@ -1,33 +1,42 @@
 import React, { useState } from "react";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import "../css/Signin.css";
+import {useNavigate} from "react-router-dom";
 
 const Signin = () => {
   const [name, setname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [succ, setSucc] = useState(false);
 
-  const handelSubmit = async(e) => {
+  const navigate = useNavigate();
+
+  const handelSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      console.log(name,email,password);
+      console.log(name, email, password);
 
-      const ans = await fetch("http://localhost:3000/user",{
-        method:"post",
-        headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({name,email,password})
+      const ans = await fetch("http://localhost:3000/user", {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
       });
 
       const data = await ans.json();
       toast.success(data.message);
 
+      if (data.success) {
+        setSucc(true);
+
+        navigate("/login");
+      }
+
       setname("");
       setEmail("");
       setPassword("");
-
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.message);
     }
   };
 
