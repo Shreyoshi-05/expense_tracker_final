@@ -45,9 +45,9 @@ const Signin = () => {
       <Toaster />
       <div className="content">
         <h2>Expense Tracker Sign In</h2>
+        
         <form action="" onSubmit={handelSubmit}>
           <div className="input">
-            <h3>Name:</h3>
             <input
               type="text"
               value={name}
@@ -58,7 +58,6 @@ const Signin = () => {
           </div>
 
           <div className="input">
-            <h3>Email:</h3>
             <input
               type="email"
               value={email}
@@ -69,7 +68,6 @@ const Signin = () => {
           </div>
 
           <div className="input">
-            <h3>Password:</h3>
             <input
               type="password"
               value={password}
@@ -79,9 +77,7 @@ const Signin = () => {
             />
           </div>
 
-          <div className="input">
-            <button type="submit">Sign In</button>
-          </div>
+          <button type="submit">Sign In</button>
         </form>
       </div>
     </div>

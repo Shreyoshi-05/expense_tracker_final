@@ -23,6 +23,7 @@ const Login = () => {
 
       if (data.success) {
         toast.success(data.message);
+        localStorage.setItem("user",JSON.stringify(data));
 
         setTimeout(() => {
           nav("/");
@@ -43,7 +44,6 @@ const Login = () => {
         <h2>Expense Tracker Log In</h2>
         <form action="" onSubmit={handelSubmit}>
           <div className="input">
-            <h3>Email:</h3>
             <input
               type="email"
               name="email"
@@ -54,7 +54,6 @@ const Login = () => {
           </div>
 
           <div className="input">
-            <h3>Password:</h3>
             <input
               type="password"
               name="password"
@@ -64,9 +63,7 @@ const Login = () => {
             />
           </div>
 
-          <div className="input">
-            <button type="submit">Log In</button>
-          </div>
+          <button type="submit">Log In</button>
         </form>
       </div>
     </div>

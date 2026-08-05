@@ -37,7 +37,7 @@ export const loginUserController = async (req, res) => {
       return giveRes(req, res, 400, "incorrect password",null, false);
     }
 
-     return giveRes(req, res, 200, "user successfully loged in" ,null, true);
+     return giveRes(req, res, 200, "user successfully loged in" ,user, true);
 
   } catch (error) {
     return giveRes(req, res, 500, error.message,null, false);
