@@ -14,6 +14,8 @@ const Add = () => {
 
   
 
+  
+
   async function handelAddInfo(e) {
     e.preventDefault();
     console.log(input);

@@ -1,0 +1,229 @@
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background: #f5f6fa;
+  margin-top: 3rem;
+}
+
+/* ================= MAIN CONTAINER ================= */
+.home_container {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.inside_container {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* ================= TOP CARDS ================= */
+.home_hero {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  flex: 1;
+  min-width: 250px;
+  padding: 20px;
+
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Titles */
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Income */
+.income_card {
+  border-left: 5px solid #00c853;
+}
+
+/* Expense */
+.expense_card {
+  border-left: 5px solid #ff4d4d;
+}
+
+/* Balance */
+.balance_card {
+  border-left: 5px solid #7e22ce;
+}
+
+/* ================= BALANCE SECTION ================= */
+.all_list {
+  width: 100%;
+  padding: 20px;
+  border-radius: 16px;
+
+  background: rgba(139, 92, 246, 0.08);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.all_list h2 {
+  margin-bottom: 10px;
+}
+
+.all_list h3 {
+  font-size: 24px;
+  color: #7e22ce;
+}
+
+/* ================= TRANSACTION LIST ================= */
+.show_all_expenses {
+  width: 100%;
+  padding: 20px;
+
+  border-radius: 16px;
+  background: rgba(139, 92, 246, 0.08);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.show_all_expenses h4 {
+  margin-bottom: 15px;
+}
+
+/* ================= TODO CARD ================= */
+.todo_card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  padding: 15px;
+  margin-bottom: 10px;
+
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: 0.2s ease;
+}
+
+.todo_card:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* LEFT ICON */
+.todo_left {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  font-size: 20px;
+}
+
+/* MIDDLE */
+.todo_middle {
+  flex: 1;
+}
+
+/* TOP ROW */
+.todo_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todo_top h4 {
+  font-size: 15px;
+}
+
+.todo_date {
+  font-size: 12px;
+  color: #777;
+}
+
+/* NOTES */
+.todo_notes {
+  font-size: 13px;
+  color: #555;
+  margin: 5px 0;
+}
+
+/* CATEGORY */
+.todo_category {
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* RIGHT */
+.todo_right {
+  text-align: right;
+}
+
+/* AMOUNT */
+.todo_amount {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.todo_amount.expense {
+  color: #ff4d4d;
+}
+
+.todo_amount.income {
+  color: #00c853;
+}
+
+/* ================= EMPTY STATE ================= */
+.empty_state {
+  text-align: center;
+  padding: 20px;
+  color: #777;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .home_hero {
+    flex-direction: column;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .todo_card {
+    flex-direction: row;
+  }
+}

@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 
 const Nav = () => {
   return (
-    <div className="navbar bg-base-100 shadow-sm" style={{ padding: "0.7rem 2rem" }}>
+    <div
+      className="navbar bg-base-100 shadow-sm fixed top-0 left-0 w-full z-50"
+      style={{ padding: "0.7rem 2rem" }}
+    >
       <div className="flex-1">
         <Link to="/">
           <svg
@@ -48,17 +51,22 @@ const Nav = () => {
           style={{ display: "flex", gap: "2rem" }}
         >
           <li>
-            <Link to="/add" style={{ padding: "0.5rem 2rem","color":"#AD49E1"}}>
-              Add
-            </Link>
+            <div className="aura aura-holo">
+              {/* <div className="card bg-base-100"> "#AD49E1"*/}
+                <div className="card-body">
+                  <Link to="/add" style={{padding:"0.6rem 1rem", color:"#fff"}}>
+                    Add
+                  </Link>
+                </div>
+              {/* </div> */}
+            </div>
           </li>
           <li>
-            <button
-              className="btn btn-accent"
-              style={{ padding: "1.5rem 1rem" }}
-            >
-              Accent
-            </button>
+            <div className="avatar avatar-placeholder">
+              <div className="bg-primary text-neutral-content w-12 rounded-full">
+                <span>SY</span>
+              </div>
+            </div>
           </li>
         </ul>
       </div>
