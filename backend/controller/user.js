@@ -1,4 +1,5 @@
 import { giveRes } from "../err/err.js";
+import { expenses } from "../table/expenses.js";
 import { User } from "../table/userTable.js";
 import bcrypt from "bcrypt";
 
@@ -19,8 +20,6 @@ export const postUserController = async (req, res) => {
     return giveRes(req, res, 500, error.message, false);
   }
 };
-
-
 
 export const loginUserController = async (req, res) => {
   try {
@@ -43,3 +42,35 @@ export const loginUserController = async (req, res) => {
     return giveRes(req, res, 500, error.message,null, false);
   }
 };
+
+export const getLeaderBoard = async(req,res) => {
+  try {
+    const allUser = await User.findAll();
+    const allExpenses = await expenses.findAll();
+
+    let ans = [];
+
+    let all = allUser.data;
+
+    for(let ss of allUser){
+      let inc = await expenses.findAll({where:{userId:ss.id,type:"income"}});
+      let exp = await expenses.findAll({where:{userId:ss.id,type:"expense"}});
+
+      const ttinc = inc.reduce((sum , item) => sum + item.amount,0);
+      const ttexp = exp.reduce((sum , item) => sum + item.amount,0);
+
+      const saveings = ttinc - ttexp;
+
+      ans.push({
+        name: ss.name,
+        saveings
+      })
+    }
+    ans.sort((a,b) =>  b.saveings -a.saveings );
+
+    return giveRes(req, res, 200, "got all user data",ans, true);
+
+  } catch (error) {
+     return giveRes(req, res, 500, error.message,null, false);
+  }
+}
