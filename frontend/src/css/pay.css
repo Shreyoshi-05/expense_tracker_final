@@ -1,0 +1,112 @@
+/* ================= PAYMENT PAGE ================= */
+.payment_container {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.payment_inside {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* ================= BALANCE CARD ================= */
+.wallet_card {
+  padding: 20px;
+  border-radius: 16px;
+
+  background: rgba(139, 92, 246, 0.08);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.wallet_card h2 {
+  margin-bottom: 10px;
+}
+
+.wallet_amount {
+  font-size: 26px;
+  font-weight: bold;
+  color: #7e22ce;
+}
+
+/* ================= PAYMENT CARD ================= */
+.payment_card {
+  padding: 20px;
+  border-radius: 16px;
+
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* INPUT */
+.payment_input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  outline: none;
+
+  font-size: 16px;
+}
+
+/* BUTTON */
+.payment_btn {
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: linear-gradient(135deg, #7e22ce, #a855f7);
+  color: white;
+
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.payment_btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+/* QUICK BUTTONS */
+.quick_amounts {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+
+  button{
+    color: #a855f7;
+    font-weight: 600;
+  }
+
+  button:hover{
+    color: #fff;
+    font-weight: 600;
+  }
+}
+
+.quick_btn {
+  flex: 1;
+  padding: 8px;
+  border-radius: 10px;
+  border: none;
+
+  background: rgba(139, 92, 246, 0.1);
+  cursor: pointer;
+}

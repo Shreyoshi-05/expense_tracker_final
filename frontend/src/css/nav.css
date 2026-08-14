@@ -1,0 +1,98 @@
+/* ================= NAVBAR ================= */
+.navbar {
+  background: rgba(255, 255, 255, 0.6) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* ================= MENU ================= */
+.menu li a {
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+  transition: 0.3s ease;
+  padding: 6px 12px;
+  border-radius: 10px;
+}
+
+/* Hover effect */
+.menu li a:hover {
+  background: rgba(126, 34, 206, 0.1);
+  color: #7e22ce;
+}
+
+/* Active link */
+.menu li a.active {
+  background: linear-gradient(135deg, #7e22ce, #a855f7);
+  color: white;
+}
+
+/* ================= ADD BUTTON (SPECIAL) ================= */
+.aura {
+  border-radius: 12px;
+  background: linear-gradient(135deg, #7e22ce, #a855f7);
+  padding: 2px;
+  transition: 0.3s ease;
+}
+
+.aura:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(126, 34, 206, 0.3);
+}
+
+.aura .card-body {
+  background: rgba(126, 34, 206, 0.9);
+  border-radius: 10px;
+  padding: 0;
+}
+
+.aura a {
+  color: white !important;
+  font-weight: 600;
+}
+
+/* ================= PAY LINK ================= */
+.menu li:nth-child(2) a {
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 10px;
+}
+
+.menu li:nth-child(2) a:hover {
+  background: rgba(139, 92, 246, 0.2);
+}
+
+/* ================= AVATAR ================= */
+.avatar div {
+  background: linear-gradient(135deg, #7e22ce, #c084fc);
+  font-weight: bold;
+  font-size: 14px;
+  transition: 0.3s ease;
+}
+
+.avatar div:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(126, 34, 206, 0.3);
+}
+
+/* ================= LOGO ================= */
+#Logo {
+  transition: 0.3s ease;
+}
+
+#Logo:hover {
+  transform: scale(1.05);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .menu {
+    gap: 1rem !important;
+  }
+
+  .menu li a {
+    font-size: 13px;
+  }
+}

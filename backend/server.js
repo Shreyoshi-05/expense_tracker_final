@@ -5,6 +5,8 @@ import { User } from "./table/userTable.js";
 import { expenses } from "./table/expenses.js";
 import cors from "cors";
 import { expenseRouter } from "./router/expenseRouter.js";
+import { paymentRouter } from "./router/paymentRoutes.js";
+import dotenv from "dotenv";
 
 
 const app = express();
@@ -14,6 +16,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended : true}));
 app.use(userRouter);
 app.use(expenseRouter);
+app.use(paymentRouter);
+dotenv.config();
 
 
 const port = 3000;

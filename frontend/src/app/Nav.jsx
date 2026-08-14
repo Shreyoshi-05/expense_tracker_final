@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import '../css/nav.css'
 
 const Nav = () => {
   return (
@@ -60,6 +61,9 @@ const Nav = () => {
                 </div>
               {/* </div> */}
             </div>
+          </li>
+          <li>
+            <Link to="/pay">Pay</Link>
           </li>
           <li>
             <div className="avatar avatar-placeholder">

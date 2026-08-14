@@ -101,10 +101,11 @@ const Home = () => {
         <div className="home_hero">
           <div
             className="card bg-base-100 w-96 shadow-sm"
-            style={{ padding: "2rem", background: "#D1FAE5" }}
+            // style={{ padding: "2rem", background: "#D1FAE5" }}
+            className="card income_card"
           >
             <div className="card-body">
-              <h1 className="card-title">Income</h1>
+              <h1 className="card-title">💰 Income</h1>
               <h3>$ {income}</h3>
               <p>Keep growing 💪</p>
             </div>
@@ -112,7 +113,8 @@ const Home = () => {
 
           <div
             className="card bg-base-100 w-96 shadow-sm"
-            style={{ padding: "2rem", background: "#FFD6D6" }}
+            // style={{ padding: "2rem", background: "#FFA6A6" }}
+            className="card expense_card"
           >
             <div className="card-body">
               <h2 className="card-title">💸 Expenses</h2>
