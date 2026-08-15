@@ -7,6 +7,7 @@ import cors from "cors";
 import { expenseRouter } from "./router/expenseRouter.js";
 import { paymentRouter } from "./router/paymentRoutes.js";
 import dotenv from "dotenv";
+import './db/index.js'
 
 
 const app = express();
