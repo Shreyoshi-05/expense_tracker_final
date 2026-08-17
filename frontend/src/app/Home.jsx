@@ -3,6 +3,7 @@ import React from "react";
 import "../css/Home.css";
 import { useState } from "react";
 import { useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const Home = () => {
   const [income, setIncome] = useState(0);
@@ -10,7 +11,7 @@ const Home = () => {
   const [summery, setSummery] = useState(0);
   const [all, setAll] = useState([]);
   const [showReport, setShowReport] = useState(false);
-  const [report,setReport] = useState("");
+  const [report, setReport] = useState("");
 
   const categoryIcons = {
     food: "🍔",
@@ -71,21 +72,40 @@ const Home = () => {
     try {
       const ans = await fetch(`http://localhost:3000/summery/${userId}`);
       const exp = await ans.json();
-      console.log(exp.data);
-      setReport(exp.data);
+      // console.log(exp.data);
+      setSummery(exp.data);
     } catch (error) {
       console.log(error.message);
     }
   }
 
-  async function getReport(userId){
+  async function getReport(userId) {
     try {
-      const data = await fetch (`http://localhost:3000/ask/${userId}`);
+      const data = await fetch(`http://localhost:3000/ask/${userId}`);
       const ans = await data.json();
       console.log(ans);
-
     } catch (error) {
       console.log(error.message);
+    }
+  };
+
+  async function handleDelete(id){
+    try {
+      const data = await fetch(`http://localhost:3000/delete/${id}`,{
+        method:"put"
+      });
+      const ans = await data.json();
+      console.log(ans);
+      if(ans.success){
+        toast.success(ans.message);
+        setAll(pre => pre.filter((item)=>item.id != id));
+
+      }else{
+        toast.error(ans.message);
+      }
+
+    } catch (error) {
+      toast.error(error.message);
     }
   }
 
@@ -101,10 +121,8 @@ const Home = () => {
       getIncomeHandler(userId);
       getAllData(userId);
       getRemain(userId);
-      getReport(userId)
+      // getReport(userId);
     }
-
-    
   }, []);
 
   if (all.length === 0) {
@@ -113,6 +131,7 @@ const Home = () => {
 
   return (
     <div className="home_container">
+      <Toaster />
       <div className="inside_container">
         <div className="home_hero">
           <div
@@ -141,61 +160,48 @@ const Home = () => {
         </div>
 
         <div className="all_list">
+          <div className="balance_header">
+            <h2>Balance Card</h2>
+          </div>
 
-  <div className="balance_header">
-    <h2>Balance Card</h2>
-  </div>
+          <div className="balance_content">
+            <div className="balance_left">
+              <p>Current Balance 💰</p>
 
-  <div className="balance_content">
+              <h3>₹ {summery}</h3>
+            </div>
 
-    <div className="balance_left">
-      <p>Current Balance 💰</p>
+            <div className="ai_report_button">
+              <div className="ai_title">✨ AI Spending Analysis</div>
 
-      <h3>₹ {summery.toLocaleString("en-IN")}</h3>
-    </div>
+              <button
+                className="ai_view_btn"
+                onClick={() => setShowReport(!showReport)}
+              >
+                {showReport ? "Hide AI Report ↑" : "View AI Report →"}
+              </button>
+            </div>
+          </div>
 
-    <div className="ai_report_button">
+          {showReport && (
+            <div className="ai_report">
+              <div className="ai_report_header">
+                <h3>✨ AI Financial Report</h3>
 
-      <div className="ai_title">
-        ✨ AI Spending Analysis
-      </div>
+                <button
+                  className="ai_close_btn"
+                  onClick={() => setShowReport(false)}
+                >
+                  ×
+                </button>
+              </div>
 
-      <button
-        className="ai_view_btn"
-        onClick={() => setShowReport(!showReport)}
-      >
-        {showReport ? "Hide AI Report ↑" : "View AI Report →"}
-      </button>
-
-    </div>
-
-  </div>
-
-  {showReport && (
-    <div className="ai_report">
-
-      <div className="ai_report_header">
-        <h3>✨ AI Financial Report</h3>
-
-        <button
-          className="ai_close_btn"
-          onClick={() => setShowReport(false)}
-        >
-          ×
-        </button>
-      </div>
-
-      <div className="ai_report_content">
-        {report
-          .replace(/\\n+/g, "\n")
-          .replace(/\*\*/g, "")
-        }
-      </div>
-
-    </div>
-  )}
-
-</div>
+              <div className="ai_report_content">
+                {report.replace(/\\n+/g, "\n").replace(/\*\*/g, "")}
+              </div>
+            </div>
+          )}
+        </div>
 
         <div className="show_all_expenses">
           <h4>All Expenses</h4>
@@ -244,7 +250,7 @@ const Home = () => {
                 </p>
                 <button
                   className="delete_btn"
-                  style={{"padding":"0.5rem","borderRadius":"50%"}}
+                  style={{ padding: "0.5rem", borderRadius: "50%" }}
                   onClick={() => handleDelete(item.id)}
                 >
                   🗑️

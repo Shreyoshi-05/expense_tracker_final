@@ -1,5 +1,5 @@
 import express from "express";
-import { askController, expenseAndIncome, expenseController, getAll, getExpense, getIncome } from "../controller/expenseController.js";
+import { askController, deleteExp, expenseAndIncome, expenseController, getAll, getExpense, getIncome } from "../controller/expenseController.js";
 
 export const expenseRouter = express.Router();
 
@@ -9,3 +9,4 @@ expenseRouter.get("/all/income/:userId",getIncome);
 expenseRouter.get("/summery/:userId",getAll);
 expenseRouter.get("/allList/:userId",expenseAndIncome);
 expenseRouter.get("/ask/:id",askController);
+expenseRouter.put("/delete/:id",deleteExp);

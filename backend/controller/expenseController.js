@@ -41,14 +41,19 @@ export const getExpense = async (req, res) => {
 };
 
 export const getIncome = async (req, res) => {
+  const tt = await expenses.transaction();
+
   const { userId } = req.params;
   try {
-    const exp = await expenses.findAll({ where: { type: "income", userId } });
+    const exp = await expenses.findAll({ where: { type: "income", userId },tt });
     let ee = 0;
     exp.forEach((expen) => (ee += expen.amount));
-
+    await tt.commit();
     return giveRes(req, res, 200, "got all income", ee, true);
+
   } catch (error) {
+    
+    await tt.rollback();
     return giveRes(req, res, 500, error.message, null, false);
   }
 };
@@ -135,3 +140,27 @@ export const askController = async (req, res) => {
     return giveRes(req, res, 500, error.message, null, false);
   }
 };
+
+export const deleteExp = async(req,res) => {
+  try {
+    const {id} = req.params;
+    const exp = await expenses.findByPk(id);
+
+    if (!exp) {
+      return giveRes(
+        req,
+        res,
+        404,
+        "Expense not found",
+        null,
+        false
+      );
+    }
+
+    await exp.destroy();
+    return giveRes(req, res, 200, "deleted this expenses", null, true);
+
+  } catch (error) {
+    return giveRes(req, res, 500, error.message, null, false);
+  }
+}
