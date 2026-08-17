@@ -9,6 +9,8 @@ const Home = () => {
   const [expense, setExpenses] = useState(0);
   const [summery, setSummery] = useState(0);
   const [all, setAll] = useState([]);
+  const [showReport, setShowReport] = useState(false);
+  const [report,setReport] = useState("");
 
   const categoryIcons = {
     food: "🍔",
@@ -63,14 +65,25 @@ const Home = () => {
       console.log(error.message);
     }
   }
-  console.log(all);
+  console.log(report);
 
   async function getRemain(userId) {
     try {
       const ans = await fetch(`http://localhost:3000/summery/${userId}`);
       const exp = await ans.json();
-      // console.log(exp.data);
-      setSummery(exp.data);
+      console.log(exp.data);
+      setReport(exp.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  async function getReport(userId){
+    try {
+      const data = await fetch (`http://localhost:3000/ask/${userId}`);
+      const ans = await data.json();
+      console.log(ans);
+
     } catch (error) {
       console.log(error.message);
     }
@@ -88,7 +101,10 @@ const Home = () => {
       getIncomeHandler(userId);
       getAllData(userId);
       getRemain(userId);
+      getReport(userId)
     }
+
+    
   }, []);
 
   if (all.length === 0) {
@@ -125,10 +141,61 @@ const Home = () => {
         </div>
 
         <div className="all_list">
-          <h2 className="card-title">Balance Card</h2>
-          <p>Current Balance💰</p>
-          <h3> $ {summery}</h3>
-        </div>
+
+  <div className="balance_header">
+    <h2>Balance Card</h2>
+  </div>
+
+  <div className="balance_content">
+
+    <div className="balance_left">
+      <p>Current Balance 💰</p>
+
+      <h3>₹ {summery.toLocaleString("en-IN")}</h3>
+    </div>
+
+    <div className="ai_report_button">
+
+      <div className="ai_title">
+        ✨ AI Spending Analysis
+      </div>
+
+      <button
+        className="ai_view_btn"
+        onClick={() => setShowReport(!showReport)}
+      >
+        {showReport ? "Hide AI Report ↑" : "View AI Report →"}
+      </button>
+
+    </div>
+
+  </div>
+
+  {showReport && (
+    <div className="ai_report">
+
+      <div className="ai_report_header">
+        <h3>✨ AI Financial Report</h3>
+
+        <button
+          className="ai_close_btn"
+          onClick={() => setShowReport(false)}
+        >
+          ×
+        </button>
+      </div>
+
+      <div className="ai_report_content">
+        {report
+          .replace(/\\n+/g, "\n")
+          .replace(/\*\*/g, "")
+        }
+      </div>
+
+    </div>
+  )}
+
+</div>
 
         <div className="show_all_expenses">
           <h4>All Expenses</h4>

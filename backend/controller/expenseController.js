@@ -1,6 +1,8 @@
 import { where } from "sequelize";
 import { giveRes } from "../err/err.js";
 import { expenses } from "../table/expenses.js";
+import { GoogleGenAI } from "@google/genai";
+import dotenv from "dotenv";
 
 export const expenseController = async (req, res) => {
   try {
@@ -54,7 +56,6 @@ export const getIncome = async (req, res) => {
 export const getAll = async (req, res) => {
   const { userId } = req.params;
   try {
-
     const exp = await expenses.findAll({ where: { type: "expense", userId } });
     let ee = 0;
     exp.forEach((expen) => (ee += expen.amount));
@@ -71,13 +72,66 @@ export const getAll = async (req, res) => {
   }
 };
 
-export const expenseAndIncome = async (req,res) => {
+export const expenseAndIncome = async (req, res) => {
   try {
-    const{userId} = req.params;
-    const all = await expenses.findAll({where:{userId}});
+    const { userId } = req.params;
+    const all = await expenses.findAll({ where: { userId } });
 
     return giveRes(req, res, 200, "got all income and expenses", all, true);
   } catch (error) {
     return giveRes(req, res, 500, error.message, null, false);
   }
-}
+};
+
+export const askController = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const data = await expenses.findAll({ where: { userId: id } });
+
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+
+    const interaction = await ai.interactions.create({
+      model: "gemini-3.6-flash",
+      input: `
+      You are a financial advisor.
+
+      Analyze the following user transaction data and give insights.
+
+      Data:
+      ${JSON.stringify(data)}
+
+      Give ONLY a short financial summary.
+
+      Requirements:
+      - Use Indian Rupee (₹), not dollars.
+      - Do not use $, USD, or any other currency.
+      - Keep the response under 100 words.
+      - Do not use Markdown.
+      - Do not use *, **, #, or ---.
+      - Do not add unnecessary explanations or notes.
+      - Do not mention test transactions.
+      - Do not repeat the transaction data.
+      - Give only the most important insights.
+
+      Use exactly this format:
+
+      Total Income: ₹amount
+      Total Expenses: ₹amount
+      Remaining: ₹amount
+
+      Top Spending: category - ₹amount
+
+      Reduce Spending: Give one short sentence about where the user should spend less.
+
+      Saving Tip: Give one short practical saving tip.
+      `,
+    });
+    const response = interaction.output_text;
+
+    const cleanResponse = response.replace(/\\n+/g, "");
+    return giveRes(req, res, 200, "got ans", cleanResponse, true);
+  } catch (error) {
+    return giveRes(req, res, 500, error.message, null, false);
+  }
+};
