@@ -7,6 +7,7 @@ import Signin from './app/Signin'
 import Nav from './app/Nav'
 import Add from './app/Add'
 import Pay from './app/Pay'
+import Contact from './app/Contact'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -20,6 +21,7 @@ function App() {
       <Route path="/login" element={<Login />}></Route>
       <Route path="/signin" element={<Signin />}></Route>
       <Route path="/pay" element={<Pay />}></Route>
+      <Route path="/contact" element={<Contact />}></Route>
     </Routes>
     </>
   )

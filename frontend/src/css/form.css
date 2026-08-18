@@ -1,0 +1,153 @@
+/* ================= CONTACT PAGE ================= */
+
+.contact_container {
+  width: 100%;
+  min-height: 60vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 10px 20px;
+}
+
+/* ================= CARD ================= */
+
+.contact_card {
+  width: 100%;
+  max-width: 600px;
+
+  padding: 30px;
+
+  border-radius: 20px;
+
+  background: rgba(139, 92, 246, 0.08);
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(139, 92, 246, 0.2);
+
+  box-shadow: 0 10px 25px rgba(126, 34, 206, 0.08);
+
+  transition: 0.3s ease;
+}
+
+.contact_card:hover {
+  transform: translateY(-4px);
+}
+
+/* ================= TITLE ================= */
+
+.contact_title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #5b21b6;
+
+  margin-bottom: 10px;
+}
+
+.contact_subtitle {
+  font-size: 14px;
+  color: #555;
+
+  margin-bottom: 25px;
+}
+
+/* ================= FORM ================= */
+
+.contact_form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* INPUT GROUP */
+
+.form_group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form_group label {
+  font-size: 13px;
+  color: #555;
+}
+
+.form_group input,
+.form_group textarea {
+  padding: 10px 12px;
+
+  border-radius: 10px;
+
+  border: 1px solid #ddd6fe;
+
+  outline: none;
+
+  font-size: 14px;
+
+  transition: 0.2s;
+}
+
+/* INPUT FOCUS */
+
+.form_group input:focus,
+.form_group textarea:focus {
+  border-color: #7e22ce;
+
+  box-shadow: 0 0 0 2px rgba(126, 34, 206, 0.15);
+}
+
+/* ================= BUTTON ================= */
+
+.contact_btn {
+  margin-top: 10px;
+
+  padding: 12px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #7e22ce;
+
+  color: white;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+.contact_btn:hover {
+  background: #6b21a8;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 6px 14px rgba(126, 34, 206, 0.25);
+}
+
+/* ================= EXTRA INFO ================= */
+
+.contact_info {
+  margin-top: 25px;
+
+  padding-top: 15px;
+
+  border-top: 1px solid #eee;
+
+  font-size: 13px;
+  color: #666;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+  .contact_card {
+    padding: 22px;
+  }
+}

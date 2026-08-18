@@ -66,6 +66,9 @@ const Nav = () => {
             <Link to="/pay">Pay</Link>
           </li>
           <li>
+            <Link to="/contact">Contact</Link>
+          </li>
+          <li>
             <div className="avatar avatar-placeholder">
               <div className="bg-primary text-neutral-content w-12 rounded-full">
                 <span>SY</span>
