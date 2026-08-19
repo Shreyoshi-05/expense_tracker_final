@@ -17,9 +17,11 @@ body {
 
 /* Center container */
 .addcontainer {
-  height: 88vh;
+
+  height: 100vh;
   display: flex;
   justify-content: center;
+  padding-top: 3rem;
   align-items: center;
 }
 

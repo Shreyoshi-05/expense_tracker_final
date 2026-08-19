@@ -1,8 +1,8 @@
 import React from "react";
-import "../css/Signin.css";
+import "../css/Login.css";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -37,6 +37,34 @@ const Login = () => {
     }
   }
 
+
+  async function handleForgot(params) {
+    if(!email){
+      toast.error("enter your  email first");
+      return;
+    }
+
+    try {
+      const ans = await fetch("http://localhost:3000/password/forgot",{
+        method:"post",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({email})
+      });
+      const data = await ans.json();
+
+      if (data.success) {
+      toast.success(data.message);
+    } else {
+      toast.error(data.message);
+    }
+
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
+
+  
+
   return (
     <div className="signin_container">
       <Toaster />
@@ -62,6 +90,7 @@ const Login = () => {
               placeholder="enter password.."
             />
           </div>
+         <button type="button" onClick={handleForgot}>fotget password</button>
 
           <button type="submit">Log In</button>
         </form>

@@ -1,9 +1,13 @@
 /* ================= PAYMENT PAGE ================= */
 .payment_container {
+  /* margin-top: 6rem; */
   width: 100%;
+  height: 100vh;
+
   padding: 20px;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .payment_inside {

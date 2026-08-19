@@ -8,6 +8,9 @@ import { expenseRouter } from "./router/expenseRouter.js";
 import { paymentRouter } from "./router/paymentRoutes.js";
 import dotenv from "dotenv";
 import './db/index.js'
+import { passInfo } from "./table/pass.js";
+import { forgotPass } from "./controller/user.js";
+import { forgetPassRouter } from "./router/forgetPassRouter.js";
 
 
 const app = express();
@@ -18,12 +21,13 @@ app.use(express.urlencoded({extended : true}));
 app.use(userRouter);
 app.use(expenseRouter);
 app.use(paymentRouter);
+app.use("/password",forgetPassRouter);
 dotenv.config();
 
 
 const port = 3000;
 
-db.sync()
+db.sync({ alter: true })
   .then(() => {
     app.listen(port, () => {
       console.log(`server is running on port ${port}`);

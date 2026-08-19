@@ -1,0 +1,147 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Background */
+.signin_container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e")
+    no-repeat center center / cover;
+  position: relative;
+}
+
+/* Dark overlay */
+.signin_container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Card */
+.content {
+  position: relative;
+  z-index: 1;
+
+  width: 90%;
+  max-width: 420px;
+  padding: 35px;
+
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+
+  color: #fff;
+  text-align: center;
+}
+
+/* Heading */
+.content h2 {
+  margin-bottom: 25px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* Form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Input container */
+.input {
+  width: 100%;
+}
+
+/* Inputs */
+.input input {
+  width: 100%;
+  padding: 12px 14px;
+
+  border-radius: 10px;
+  border: none;
+  outline: none;
+
+  background: rgba(255, 255, 255, 0.2);
+  color: #4d4444;
+
+  font-size: 14px;
+}
+
+/* Placeholder */
+.input input::placeholder {
+  color: #918d8d;
+}
+
+/* Forgot password */
+form p {
+  font-size: 13px;
+  text-align: right;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: 0.3s;
+}
+
+form p:hover {
+  opacity: 1;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 12px;
+
+  border-radius: 10px;
+  border: none;
+
+  background: #22c55e;
+  color: white;
+
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+/* Hover */
+button:hover {
+  background: #16a34a;
+}
+
+/* Disabled (if you add loading later) */
+button:disabled {
+  background: gray;
+  cursor: not-allowed;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .content {
+    padding: 25px;
+  }
+
+  .content h2 {
+    font-size: 20px;
+  }
+}

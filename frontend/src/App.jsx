@@ -10,11 +10,12 @@ import Pay from './app/Pay'
 import Contact from './app/Contact'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const hideNavRoutes = ["/login", "/signin", "/contact"];
 
   return (
     <>
-    <Nav />
+    {!hideNavRoutes.includes(location.pathname) && <Nav />}
     <Routes>
       <Route path="/" element={<Home />}></Route>
       <Route path="/add" element={<Add />}></Route>

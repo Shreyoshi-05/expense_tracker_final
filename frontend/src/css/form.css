@@ -1,8 +1,10 @@
 /* ================= CONTACT PAGE ================= */
 
 .contact_container {
+  /* background-color: red; */
   width: 100%;
-  min-height: 60vh;
+  min-height: 100vh;
+  /* margin-top: 3.5rem; */
 
   display: flex;
   justify-content: center;
