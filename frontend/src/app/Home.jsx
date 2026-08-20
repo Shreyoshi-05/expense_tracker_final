@@ -128,6 +128,8 @@ const Home = () => {
     return <p>No data available</p>;
   }
 
+  const pageNo = (all.length/3);
+
   return (
     <div className="home_container">
       <Toaster />
@@ -260,7 +262,7 @@ const Home = () => {
 
           <div className="page_container">
             <div className="pagination">
-              <span
+              {/* <span
                 onClick={() => setPage(1)}
                 class={page == 1 ? "page-number active" : "page-number"}
               >
@@ -278,9 +280,26 @@ const Home = () => {
               >
                 3
               </span>
-              <span onClick={()=>setPage(4)} class={page == 4 ?"page-number active":"page-number"}>4</span>
+              <span onClick={()=>setPage(4)} class={page == 4 ?"page-number active":"page-number"}>4</span> */}
+
+              <span onClick={()=>{
+                if(page > 1){
+                  setPage((pre)=>pre - 1)
+                }
+              }} class="page-number">{"<"}</span>
+
+              <span class="page-number">Page {page}</span>
+              
+              <span onClick={()=>{
+                if(page < pageNo){
+                  setPage((p) => p + 1)
+                }
+              }} class="page-number">{">"}</span>
+
             </div>
           </div>
+
+
         </div>
       </div>
     </div>
