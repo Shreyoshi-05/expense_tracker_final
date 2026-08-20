@@ -12,6 +12,7 @@ const Home = () => {
   const [all, setAll] = useState([]);
   const [showReport, setShowReport] = useState(false);
   const [report, setReport] = useState("");
+  const [page, setPage] = useState(1);
 
   const categoryIcons = {
     food: "🍔",
@@ -87,23 +88,21 @@ const Home = () => {
     } catch (error) {
       console.log(error.message);
     }
-  };
+  }
 
-  async function handleDelete(id){
+  async function handleDelete(id) {
     try {
-      const data = await fetch(`http://localhost:3000/delete/${id}`,{
-        method:"put"
+      const data = await fetch(`http://localhost:3000/delete/${id}`, {
+        method: "put",
       });
       const ans = await data.json();
       console.log(ans);
-      if(ans.success){
+      if (ans.success) {
         toast.success(ans.message);
-        setAll(pre => pre.filter((item)=>item.id != id));
-
-      }else{
+        setAll((pre) => pre.filter((item) => item.id != id));
+      } else {
         toast.error(ans.message);
       }
-
     } catch (error) {
       toast.error(error.message);
     }
@@ -206,7 +205,7 @@ const Home = () => {
         <div className="show_all_expenses">
           <h4>All Expenses</h4>
 
-          {all.map((item) => (
+          {all.slice((page*3)-3, page*3).map((item) => (
             <div key={item.id} className="todo_card">
               {/* LEFT: icon with background */}
               <div
@@ -258,6 +257,30 @@ const Home = () => {
               </div>
             </div>
           ))}
+
+          <div className="page_container">
+            <div className="pagination">
+              <span
+                onClick={() => setPage(1)}
+                class={page == 1 ? "page-number active" : "page-number"}
+              >
+                1
+              </span>
+              <span
+                onClick={() => setPage(2)}
+                class={page == 2 ? "page-number active" : "page-number"}
+              >
+                2
+              </span>
+              <span
+                onClick={() => setPage(3)}
+                class={page == 3 ? "page-number active" : "page-number"}
+              >
+                3
+              </span>
+              <span onClick={()=>setPage(4)} class={page == 4 ?"page-number active":"page-number"}>4</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
