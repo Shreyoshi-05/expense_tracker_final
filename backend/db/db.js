@@ -1,6 +1,9 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import { Sequelize } from 'sequelize';
 
-const sequelize = new Sequelize('pr_new', 'root', 'shreayoshi123', {
+const sequelize = new Sequelize(process.env.MYSQL_BD_NAME, 'root', process.env.MYSQL_BD_PASS, {
   host: 'localhost',
   dialect: 'mysql'
 });
