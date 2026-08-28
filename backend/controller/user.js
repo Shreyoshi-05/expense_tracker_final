@@ -3,7 +3,8 @@ import { giveRes } from "../err/err.js";
 import { expenses } from "../table/expenses.js";
 import { User } from "../table/userTable.js";
 import bcrypt from "bcrypt";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
+import crypto from "crypto";
 import { passInfo } from "../table/pass.js";
 
 export const postUserController = async (req, res) => {
@@ -103,9 +104,17 @@ export const getLeaderBoard = async (req, res) => {
 
 export const forgotPass = async (req, res) => {
   try {
-    const token = uuidv4();
+    const { email } = req.body;
 
-    const pass = await passInfo.create({
+    const user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      return giveRes(req, res, 400, "User not found", null, false);
+    }
+
+    const token = crypto.randomUUID();
+
+    await passInfo.create({
       id: token,
       userId: user.id,
       isActive: true,
