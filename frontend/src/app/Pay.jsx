@@ -20,7 +20,7 @@ const Pay = () => {
 
   async function getLB(params) {
     try {
-      const ans = await fetch("http://localhost:3000/leaderboard");
+      const ans = await fetch("https://expense-tracker-backend-8se2.onrender.com/leaderboard");
       const data = await ans.json();
       console.log(data);
       setLeaderboardData(data.data);

@@ -37,7 +37,7 @@ const Home = () => {
 
   async function getExpenseHandler(userId) {
     try {
-      const ans = await fetch(`http://localhost:3000/all/expense/${userId}`);
+      const ans = await fetch(`https://expense-tracker-backend-8se2.onrender.com/all/expense/${userId}`);
       const exp = await ans.json();
       // console.log(exp.data);
       setExpenses(exp.data);
@@ -48,7 +48,7 @@ const Home = () => {
 
   async function getIncomeHandler(userId) {
     try {
-      const ans = await fetch(`http://localhost:3000/all/income/${userId}`);
+      const ans = await fetch(`https://expense-tracker-backend-8se2.onrender.com/all/income/${userId}`);
       const exp = await ans.json();
       // console.log(exp.data);
       setIncome(exp.data);
@@ -59,7 +59,7 @@ const Home = () => {
 
   async function getAllData(userId) {
     try {
-      const ans = await fetch(`http://localhost:3000/allList/${userId}`);
+      const ans = await fetch(`https://expense-tracker-backend-8se2.onrender.com/allList/${userId}`);
       const exp = await ans.json();
       // console.log(exp.data);
       setAll(exp.data);
@@ -71,7 +71,7 @@ const Home = () => {
 
   async function getRemain(userId) {
     try {
-      const ans = await fetch(`http://localhost:3000/summery/${userId}`);
+      const ans = await fetch(`https://expense-tracker-backend-8se2.onrender.com/summery/${userId}`);
       const exp = await ans.json();
       // console.log(exp.data);
       setSummery(exp.data);
@@ -82,7 +82,7 @@ const Home = () => {
 
   async function getReport(userId) {
     try {
-      const data = await fetch(`http://localhost:3000/ask/${userId}`);
+      const data = await fetch(`https://expense-tracker-backend-8se2.onrender.com/ask/${userId}`);
       const ans = await data.json();
       console.log(ans);
     } catch (error) {
@@ -92,7 +92,7 @@ const Home = () => {
 
   async function handleDelete(id) {
     try {
-      const data = await fetch(`http://localhost:3000/delete/${id}`, {
+      const data = await fetch(`https://expense-tracker-backend-8se2.onrender.com/delete/${id}`, {
         method: "put",
       });
       const ans = await data.json();

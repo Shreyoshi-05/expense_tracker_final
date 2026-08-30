@@ -13,7 +13,7 @@ const Contact = () => {
     const object = Object.fromEntries(formData);
     const json = JSON.stringify(object);
 
-    const res = await fetch("https://api.web3forms.com/submit", {
+    const res = await fetch("https://expense-tracker-backend-8se2.onrender.com", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

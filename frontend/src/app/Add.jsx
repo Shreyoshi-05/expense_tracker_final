@@ -31,7 +31,7 @@ const Add = () => {
     }
 
     try {
-      const ans = await fetch("http://localhost:3000/expense",{
+      const ans = await fetch("https://expense-tracker-backend-8se2.onrender.com/expense",{
         "method":"post",
         "headers":{"Content-Type":"application/json"},
         "body":JSON.stringify(payload)

@@ -17,7 +17,7 @@ const Signin = () => {
     try {
       console.log(name, email, password);
 
-      const ans = await fetch("http://localhost:3000/user", {
+      const ans = await fetch("https://expense-tracker-backend-8se2.onrender.com/user", {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
