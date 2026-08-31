@@ -4,6 +4,7 @@ import "../css/Home.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import Emptypage from "./Emptypage";
 
 const Home = () => {
   const [income, setIncome] = useState(0);
@@ -35,78 +36,142 @@ const Home = () => {
     others: "#607d8b",
   };
 
+  // async function getExpenseHandler(userId) {
+  //   try {
+  //     const ans = await fetch(`https://expense-tracker-backend-8se2.onrender.com/all/expense/${userId}`);
+  //     const exp = await ans.json();
+  //     // console.log(exp.data);
+  //     setExpenses(exp.data);
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // }
+
+  // async function getIncomeHandler(userId) {
+  //   try {
+  //     const ans = await fetch(`https://expense-tracker-backend-8se2.onrender.com/all/income/${userId}`);
+  //     const exp = await ans.json();
+  //     // console.log(exp.data);
+  //     setIncome(exp.data);
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // }
+
+  // async function getAllData(userId) {
+  //   try {
+  //     const ans = await fetch(`https://expense-tracker-backend-8se2.onrender.com/allList/${userId}`);
+  //     const exp = await ans.json();
+  //     console.log(exp.data);
+  //     setAll(exp.data);
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // }
+  // console.log(report);
+
+  // async function getRemain(userId) {
+  //   try {
+  //     const ans = await fetch(`https://expense-tracker-backend-8se2.onrender.com/summery/${userId}`);
+  //     const exp = await ans.json();
+  //     // console.log(exp.data);
+  //     setSummery(exp.data);
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // }
+
+  // async function getReport(userId) {
+  //   try {
+  //     const data = await fetch(`https://expense-tracker-backend-8se2.onrender.com/ask/${userId}`);
+  //     const ans = await data.json();
+  //     console.log(ans);
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // }
+
+  // async function handleDelete(id) {
+  //   try {
+  //     const data = await fetch(`https://expense-tracker-backend-8se2.onrender.com/delete/${id}`, {
+  //       method: "put",
+  //     });
+  //     const ans = await data.json();
+  //     console.log(ans);
+  //     if (ans.success) {
+  //       toast.success(ans.message);
+  //       setAll((pre) => pre.filter((item) => item.id != id));
+  //     } else {
+  //       toast.error(ans.message);
+  //     }
+  //   } catch (error) {
+  //     toast.error(error.message);
+  //   }
+  // }
+
   async function getExpenseHandler(userId) {
-    try {
-      const ans = await fetch(`https://expense-tracker-backend-8se2.onrender.com/all/expense/${userId}`);
-      const exp = await ans.json();
-      // console.log(exp.data);
-      setExpenses(exp.data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
+  try {
+    const ans = await fetch(
+      `https://expense-tracker-backend-8se2.onrender.com/all/expense/${userId}`
+    );
 
-  async function getIncomeHandler(userId) {
-    try {
-      const ans = await fetch(`https://expense-tracker-backend-8se2.onrender.com/all/income/${userId}`);
-      const exp = await ans.json();
-      // console.log(exp.data);
-      setIncome(exp.data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
+    console.log("EXPENSE STATUS:", ans.status);
+    console.log("EXPENSE TYPE:", ans.headers.get("content-type"));
 
-  async function getAllData(userId) {
-    try {
-      const ans = await fetch(`https://expense-tracker-backend-8se2.onrender.com/allList/${userId}`);
-      const exp = await ans.json();
-      console.log(exp.data);
-      setAll(exp.data);
-    } catch (error) {
-      console.log(error.message);
-    }
+    const exp = await ans.json();
+    setExpenses(exp.data);
+  } catch (error) {
+    console.log("EXPENSE ERROR:", error.message);
   }
-  console.log(report);
+}
 
-  async function getRemain(userId) {
-    try {
-      const ans = await fetch(`https://expense-tracker-backend-8se2.onrender.com/summery/${userId}`);
-      const exp = await ans.json();
-      // console.log(exp.data);
-      setSummery(exp.data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
+async function getIncomeHandler(userId) {
+  try {
+    const ans = await fetch(
+      `https://expense-tracker-backend-8se2.onrender.com/all/income/${userId}`
+    );
 
-  async function getReport(userId) {
-    try {
-      const data = await fetch(`https://expense-tracker-backend-8se2.onrender.com/ask/${userId}`);
-      const ans = await data.json();
-      console.log(ans);
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
+    console.log("INCOME STATUS:", ans.status);
+    console.log("INCOME TYPE:", ans.headers.get("content-type"));
 
-  async function handleDelete(id) {
-    try {
-      const data = await fetch(`https://expense-tracker-backend-8se2.onrender.com/delete/${id}`, {
-        method: "put",
-      });
-      const ans = await data.json();
-      console.log(ans);
-      if (ans.success) {
-        toast.success(ans.message);
-        setAll((pre) => pre.filter((item) => item.id != id));
-      } else {
-        toast.error(ans.message);
-      }
-    } catch (error) {
-      toast.error(error.message);
-    }
+    const exp = await ans.json();
+    setIncome(exp.data);
+  } catch (error) {
+    console.log("INCOME ERROR:", error.message);
   }
+}
+
+async function getAllData(userId) {
+  try {
+    const ans = await fetch(
+      `https://expense-tracker-backend-8se2.onrender.com/allList/${userId}`
+    );
+
+    console.log("ALL STATUS:", ans.status);
+    console.log("ALL TYPE:", ans.headers.get("content-type"));
+
+    const exp = await ans.json();
+    setAll(exp.data);
+  } catch (error) {
+    console.log("ALL ERROR:", error.message);
+  }
+}
+
+async function getRemain(userId) {
+  try {
+    const ans = await fetch(
+      `https://expense-tracker-backend-8se2.onrender.com/summery/${userId}`
+    );
+
+    console.log("SUMMARY STATUS:", ans.status);
+    console.log("SUMMARY TYPE:", ans.headers.get("content-type"));
+
+    const exp = await ans.json();
+    setSummery(exp.data);
+  } catch (error) {
+    console.log("SUMMARY ERROR:", error.message);
+  }
+}
 
   useEffect(() => {
     const id = JSON.parse(localStorage.getItem("user"));
@@ -125,7 +190,7 @@ const Home = () => {
   }, []);
 
   if (all.length === 0) {
-    return <p>No data available</p>;
+    return <Emptypage/>;
   }
 
   const pageNo = (all.length/3);
