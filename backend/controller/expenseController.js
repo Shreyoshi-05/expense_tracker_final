@@ -41,14 +41,21 @@ export const getExpense = async (req, res) => {
 };
 
 export const getIncome = async (req, res) => {
-  const tt = await expenses.transaction();
+  // const tt = await expenses.transaction();
 
-  const { userId } = req.params;
+  
   try {
-    const exp = await expenses.findAll({ where: { type: "income", userId },tt });
+    const { userId } = req.params;
+
+    // const exp = await expenses.findAll({ where: { type: "income", userId },tt });
+    const exp = await expenses.findAll({ where: { type: "income", userId } });
+
     let ee = 0;
+
     exp.forEach((expen) => (ee += expen.amount));
-    await tt.commit();
+
+    // await tt.commit();
+
     return giveRes(req, res, 200, "got all income", ee, true);
 
   } catch (error) {

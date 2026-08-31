@@ -61,7 +61,7 @@ const Home = () => {
     try {
       const ans = await fetch(`https://expense-tracker-backend-8se2.onrender.com/allList/${userId}`);
       const exp = await ans.json();
-      // console.log(exp.data);
+      console.log(exp.data);
       setAll(exp.data);
     } catch (error) {
       console.log(error.message);
@@ -110,7 +110,7 @@ const Home = () => {
 
   useEffect(() => {
     const id = JSON.parse(localStorage.getItem("user"));
-    // console.log(id);
+    // console.log("id",id);
 
     if (id) {
       const userId = id?.data?.id;
