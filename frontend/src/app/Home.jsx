@@ -175,32 +175,36 @@ const Home = () => {
   }
 
   useEffect(() => {
-    try {
-      setLoading(true);
-      const id = JSON.parse(localStorage.getItem("user"));
-      // console.log("id",id);
+    const fetchData = async () => {
+      try {
+        setLoading(true);
 
-      if (id) {
-        const userId = id?.data?.id;
-        console.log(userId);
+        const id = JSON.parse(localStorage.getItem("user"));
 
-        getExpenseHandler(userId);
-        getIncomeHandler(userId);
-        getAllData(userId);
-        getRemain(userId);
-        // getReport(userId);
+        if (id) {
+          const userId = id?.data?.id;
+
+          await Promise.all([
+            getExpenseHandler(userId),
+            getIncomeHandler(userId),
+            getAllData(userId),
+            getRemain(userId),
+          ]);
+        }
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.log(error.message);
-    } finally {
-      setLoading(false);
-    }
+    };
+
+    fetchData();
   }, []);
 
   if (loading) {
     return <Emptypage />;
   }
-  
+
   if (all.length === 0) {
     return <Emptypage />;
   }

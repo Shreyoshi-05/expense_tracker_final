@@ -1,31 +1,27 @@
-import React from 'react'
+import React from "react";
 
 const Emptypage = () => {
   return (
-    <div className="home_container">
-      <div className="inside_container">
+    <div className="flex w-52 flex-col gap-4">
+      <div className="skeleton h-32 w-full"></div>
+      <div className="skeleton h-4 w-28"></div>
+      <div className="skeleton h-4 w-full"></div>
+      <div className="skeleton h-4 w-full"></div>
 
-        {/* Income + Expense */}
-        <div className="home_hero">
-          <div className="skeleton income_skeleton"></div>
-          <div className="skeleton expense_skeleton"></div>
-        </div>
+      <br />
 
-        {/* Balance */}
-        <div className="skeleton balance_skeleton"></div>
+      <div className="skeleton h-32 w-full"></div>
+      <div className="skeleton h-4 w-28"></div>
+      <div className="skeleton h-4 w-full"></div>
+      <div className="skeleton h-4 w-full"></div>
+      <br />
 
-        {/* All Expenses */}
-        <div className="expenses_skeleton_container">
-          <div className="skeleton skeleton_heading"></div>
-
-          <div className="skeleton transaction_skeleton"></div>
-          <div className="skeleton transaction_skeleton"></div>
-          <div className="skeleton transaction_skeleton"></div>
-        </div>
-
-      </div>
+      <div className="skeleton h-32 w-full"></div>
+      <div className="skeleton h-4 w-28"></div>
+      <div className="skeleton h-4 w-full"></div>
+      <div className="skeleton h-4 w-full"></div>
     </div>
-  )
-}
+  );
+};
 
-export default Emptypage
+export default Emptypage;
