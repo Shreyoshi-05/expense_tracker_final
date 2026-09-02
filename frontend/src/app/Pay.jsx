@@ -38,7 +38,7 @@ const Pay = () => {
 
   const doPayment = async () => {
     try {
-      const res = await fetch("http://localhost:3000/create-order", {
+      const res = await fetch("https://expense-tracker-backend-8se2.onrender.com/create-order", {
         method: "post",
       });
       const data = await res.json();

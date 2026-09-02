@@ -1,21 +1,28 @@
-/* ================= EMPTY / NO DATA PAGE ================= */
-
 .empty_page_container {
-  width: 100%;
-  min-height: calc(100vh - 100px);
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
 
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+
+  background: #f5f6fa;
 
   padding: 20px;
+
+  z-index: 1;
 }
 
 .empty_page_card {
-  width: 100%;
-  max-width: 520px;
+  width: 90%;
+  max-width: 550px;
 
-  padding: 45px 35px;
+  padding: 50px 35px;
 
   text-align: center;
 
@@ -25,57 +32,50 @@
 
   border: 1px solid #d8d0ff;
 
-  box-shadow: 0 10px 30px rgba(126, 34, 206, 0.1);
-
-  backdrop-filter: blur(10px);
-
-  animation: emptyCardOpen 0.35s ease;
+  box-shadow: 0 10px 35px rgba(126, 34, 206, 0.12);
 }
 
 .empty_page_icon {
-  width: 75px;
-  height: 75px;
+  width: 80px;
+  height: 80px;
 
   margin: 0 auto 20px;
 
   display: flex;
-  align-items: center;
   justify-content: center;
-
-  border-radius: 50%;
+  align-items: center;
 
   background: white;
 
-  border: 1px solid #ddd6fe;
+  border-radius: 50%;
 
-  box-shadow: 0 6px 18px rgba(126, 34, 206, 0.1);
+  font-size: 35px;
 
-  font-size: 34px;
+  box-shadow: 0 5px 15px rgba(126, 34, 206, 0.12);
 }
 
 .empty_page_card h2 {
-  font-size: 25px;
-
+  font-size: 27px;
   color: #5b21b6;
 
   margin-bottom: 12px;
 }
 
 .empty_page_card p {
-  max-width: 400px;
-
-  margin: 0 auto 25px;
+  color: #666;
 
   font-size: 14px;
   line-height: 1.7;
 
-  color: #666;
+  margin-bottom: 25px;
 }
 
 .empty_page_btn {
-  padding: 11px 22px;
-
   border: none;
+
+  padding: 12px 25px;
+  width: 4rem;
+
   border-radius: 10px;
 
   background: #7e22ce;
@@ -87,7 +87,7 @@
 
   cursor: pointer;
 
-  transition: all 0.25s ease;
+  transition: 0.25s;
 }
 
 .empty_page_btn:hover {
@@ -98,37 +98,13 @@
   box-shadow: 0 6px 15px rgba(126, 34, 206, 0.25);
 }
 
-@keyframes emptyCardOpen {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ================= MOBILE ================= */
-
 @media (max-width: 480px) {
   .empty_page_card {
-    padding: 35px 20px;
-  }
-
-  .empty_page_icon {
-    width: 65px;
-    height: 65px;
-
-    font-size: 28px;
+    width: 95%;
+    padding: 40px 20px;
   }
 
   .empty_page_card h2 {
-    font-size: 21px;
-  }
-
-  .empty_page_card p {
-    font-size: 13px;
+    font-size: 22px;
   }
 }
