@@ -26,7 +26,7 @@ const Pay = () => {
       const data = await ans.json();
       console.log(data);
       setLeaderboardData(data.data);
-      console;
+      // console;
     } catch (error) {
       toast.error(error.message);
     }
@@ -37,7 +37,7 @@ const Pay = () => {
       const id = JSON.parse(localStorage.getItem("user"));
 
       if(id){
-        ii = id?.data?.id;
+        let ii = id?.data?.id;
         getLB(ii);
       }
     }

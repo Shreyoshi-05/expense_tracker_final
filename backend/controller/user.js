@@ -48,59 +48,38 @@ export const loginUserController = async (req, res) => {
 
 export const getLeaderBoard = async (req, res) => {
   try {
-    const {id} = req.params;
-    const allUser = await User.findAll({attributes:["id"]});
-    // const allExpenses = await expenses.findAll({attributes:["type","userId","amount"]});
+    const { id } = req.params;
+    const user = await User.findOne({
+      where: { id },
+      attributes: ["id", "name"],
+    });
+
+    if (!user) {
+      return giveRes(req, res, 404, "User not found", null, false);
+    };
 
     let ans = [];
 
-    // let all = allUser.data;
+    let inc = await expenses.findAll({
+      where: { userId: user.id, type: "income" },
+    });
+    let exp = await expenses.findAll({
+      where: { userId: user.id, type: "expense" },
+    });
 
-    for(let ss of allUser){
-      let inc = await expenses.findAll({where:{userId:ss.id,type:"income"}});
-      let exp = await expenses.findAll({where:{userId:ss.id,type:"expense"}});
+    const ttinc = inc.reduce((sum, item) => sum + item.amount, 0);
+    const ttexp = exp.reduce((sum, item) => sum + item.amount, 0);
 
-      const ttinc = inc.reduce((sum , item) => sum + item.amount,0);
-      const ttexp = exp.reduce((sum , item) => sum + item.amount,0);
+    const saveings = ttinc - ttexp;
 
-      const saveings = ttinc - ttexp;
+    ans.push ({
+        name: user.name,
+        saveings,
+      }
+    );
+    
+    ans.sort((a, b) => b.saveings - a.saveings);
 
-      ans.push({
-        name: ss.name,
-        saveings
-      })
-    }
-    ans.sort((a,b) =>  b.saveings -a.saveings );
-
-  //   const {id} = req.params;
-
-  //   const result = await User.findAll({
-  //     attributes: [
-  //       "id",
-  //       "name",
-  //       [
-  //         Sequelize.literal(`sum(
-  //       case 
-  //       when expenses.type = "income" then expenses.amount
-  //       when expenses.type = "expense" then - expenses.amount
-  //       else 0
-  //       end
-  //       )`),
-  //         "saveings",
-  //       ],
-  //     ],
-  //     include: [
-  //       {
-  //         model: expenses,
-  //         attributes: [],
-  //       },
-  //     ],
-  //     group: ["User.id", "User.name"],
-  //     order: [[Sequelize.literal("saveings"), "desc"]],
-  //   }
-  // );
-
-    // return giveRes(req, res, 200, "got all user data", result, true);
     return giveRes(req, res, 200, "got all user data", ans, true);
 
   } catch (error) {
