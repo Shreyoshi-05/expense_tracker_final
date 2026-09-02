@@ -14,6 +14,7 @@ const Home = () => {
   const [showReport, setShowReport] = useState(false);
   const [report, setReport] = useState("");
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   const categoryIcons = {
     food: "🍔",
@@ -110,90 +111,101 @@ const Home = () => {
   // }
 
   async function getExpenseHandler(userId) {
-  try {
-    const ans = await fetch(
-      `https://expense-tracker-backend-8se2.onrender.com/all/expense/${userId}`
-    );
+    try {
+      const ans = await fetch(
+        `https://expense-tracker-backend-8se2.onrender.com/all/expense/${userId}`,
+      );
 
-    console.log("EXPENSE STATUS:", ans.status);
-    console.log("EXPENSE TYPE:", ans.headers.get("content-type"));
+      console.log("EXPENSE STATUS:", ans.status);
+      console.log("EXPENSE TYPE:", ans.headers.get("content-type"));
 
-    const exp = await ans.json();
-    setExpenses(exp.data);
-  } catch (error) {
-    console.log("EXPENSE ERROR:", error.message);
+      const exp = await ans.json();
+      setExpenses(exp.data);
+    } catch (error) {
+      console.log("EXPENSE ERROR:", error.message);
+    }
   }
-}
 
-async function getIncomeHandler(userId) {
-  try {
-    const ans = await fetch(
-      `https://expense-tracker-backend-8se2.onrender.com/all/income/${userId}`
-    );
+  async function getIncomeHandler(userId) {
+    try {
+      const ans = await fetch(
+        `https://expense-tracker-backend-8se2.onrender.com/all/income/${userId}`,
+      );
 
-    console.log("INCOME STATUS:", ans.status);
-    console.log("INCOME TYPE:", ans.headers.get("content-type"));
+      console.log("INCOME STATUS:", ans.status);
+      console.log("INCOME TYPE:", ans.headers.get("content-type"));
 
-    const exp = await ans.json();
-    setIncome(exp.data);
-  } catch (error) {
-    console.log("INCOME ERROR:", error.message);
+      const exp = await ans.json();
+      setIncome(exp.data);
+    } catch (error) {
+      console.log("INCOME ERROR:", error.message);
+    }
   }
-}
 
-async function getAllData(userId) {
-  try {
-    const ans = await fetch(
-      `https://expense-tracker-backend-8se2.onrender.com/allList/${userId}`
-    );
+  async function getAllData(userId) {
+    try {
+      const ans = await fetch(
+        `https://expense-tracker-backend-8se2.onrender.com/allList/${userId}`,
+      );
 
-    console.log("ALL STATUS:", ans.status);
-    console.log("ALL TYPE:", ans.headers.get("content-type"));
+      console.log("ALL STATUS:", ans.status);
+      console.log("ALL TYPE:", ans.headers.get("content-type"));
 
-    const exp = await ans.json();
-    setAll(exp.data);
-  } catch (error) {
-    console.log("ALL ERROR:", error.message);
+      const exp = await ans.json();
+      setAll(exp.data);
+    } catch (error) {
+      console.log("ALL ERROR:", error.message);
+    }
   }
-}
 
-async function getRemain(userId) {
-  try {
-    const ans = await fetch(
-      `https://expense-tracker-backend-8se2.onrender.com/summery/${userId}`
-    );
+  async function getRemain(userId) {
+    try {
+      const ans = await fetch(
+        `https://expense-tracker-backend-8se2.onrender.com/summery/${userId}`,
+      );
 
-    console.log("SUMMARY STATUS:", ans.status);
-    console.log("SUMMARY TYPE:", ans.headers.get("content-type"));
+      console.log("SUMMARY STATUS:", ans.status);
+      console.log("SUMMARY TYPE:", ans.headers.get("content-type"));
 
-    const exp = await ans.json();
-    setSummery(exp.data);
-  } catch (error) {
-    console.log("SUMMARY ERROR:", error.message);
+      const exp = await ans.json();
+      setSummery(exp.data);
+    } catch (error) {
+      console.log("SUMMARY ERROR:", error.message);
+    }
   }
-}
 
   useEffect(() => {
-    const id = JSON.parse(localStorage.getItem("user"));
-    // console.log("id",id);
+    try {
+      setLoading(true);
+      const id = JSON.parse(localStorage.getItem("user"));
+      // console.log("id",id);
 
-    if (id) {
-      const userId = id?.data?.id;
-      console.log(userId);
+      if (id) {
+        const userId = id?.data?.id;
+        console.log(userId);
 
-      getExpenseHandler(userId);
-      getIncomeHandler(userId);
-      getAllData(userId);
-      getRemain(userId);
-      // getReport(userId);
+        getExpenseHandler(userId);
+        getIncomeHandler(userId);
+        getAllData(userId);
+        getRemain(userId);
+        // getReport(userId);
+      }
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   }, []);
 
+  if (loading) {
+    return <Emptypage />;
+  }
+  
   if (all.length === 0) {
-    return <Emptypage/>;
+    return <Emptypage />;
   }
 
-  const pageNo = (all.length/3);
+  const pageNo = all.length / 3;
 
   return (
     <div className="home_container">
@@ -272,7 +284,7 @@ async function getRemain(userId) {
         <div className="show_all_expenses">
           <h4>All Expenses</h4>
 
-          {all.slice((page*3)-3, page*3).map((item) => (
+          {all.slice(page * 3 - 3, page * 3).map((item) => (
             <div key={item.id} className="todo_card">
               {/* LEFT: icon with background */}
               <div
@@ -347,24 +359,31 @@ async function getRemain(userId) {
               </span>
               <span onClick={()=>setPage(4)} class={page == 4 ?"page-number active":"page-number"}>4</span> */}
 
-              <span onClick={()=>{
-                if(page > 1){
-                  setPage((pre)=>pre - 1)
-                }
-              }} class="page-number">{"<"}</span>
+              <span
+                onClick={() => {
+                  if (page > 1) {
+                    setPage((pre) => pre - 1);
+                  }
+                }}
+                class="page-number"
+              >
+                {"<"}
+              </span>
 
               <span class="page-number">Page {page}</span>
-              
-              <span onClick={()=>{
-                if(page < pageNo){
-                  setPage((p) => p + 1)
-                }
-              }} class="page-number">{">"}</span>
 
+              <span
+                onClick={() => {
+                  if (page < pageNo) {
+                    setPage((p) => p + 1);
+                  }
+                }}
+                class="page-number"
+              >
+                {">"}
+              </span>
             </div>
           </div>
-
-
         </div>
       </div>
     </div>

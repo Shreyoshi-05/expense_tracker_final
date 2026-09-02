@@ -2,23 +2,27 @@ import React from 'react'
 
 const Emptypage = () => {
   return (
-    <div className="empty_page_container">
-      <div className="empty_page_card">
-        <div className="empty_page_icon">📊</div>
+    <div className="home_container">
+      <div className="inside_container">
 
-        <h2>No Transactions Yet</h2>
+        {/* Income + Expense */}
+        <div className="home_hero">
+          <div className="skeleton income_skeleton"></div>
+          <div className="skeleton expense_skeleton"></div>
+        </div>
 
-        <p>
-          Your financial dashboard is waiting for some data.
-          Add your first income or expense to get started.
-        </p>
+        {/* Balance */}
+        <div className="skeleton balance_skeleton"></div>
 
-        <button
-          className="empty_page_btn"
-          onClick={() => (window.location.href = "/add")}
-        >
-          + Add Transaction
-        </button>
+        {/* All Expenses */}
+        <div className="expenses_skeleton_container">
+          <div className="skeleton skeleton_heading"></div>
+
+          <div className="skeleton transaction_skeleton"></div>
+          <div className="skeleton transaction_skeleton"></div>
+          <div className="skeleton transaction_skeleton"></div>
+        </div>
+
       </div>
     </div>
   )
