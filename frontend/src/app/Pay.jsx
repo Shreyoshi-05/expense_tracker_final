@@ -18,9 +18,11 @@ const Pay = () => {
     init();
   }, []);
 
-  async function getLB(params) {
+  async function getLB(id) {
+
+    console.log(id);
     try {
-      const ans = await fetch("https://expense-tracker-backend-8se2.onrender.com/leaderboard");
+      const ans = await fetch(`https://expense-tracker-backend-8se2.onrender.com/leaderboard/${id}`);
       const data = await ans.json();
       console.log(data);
       setLeaderboardData(data.data);
@@ -32,7 +34,12 @@ const Pay = () => {
 
   useEffect(() => {
     if (leaderboard) {
-      getLB();
+      const id = JSON.parse(localStorage.getItem("user"));
+
+      if(id){
+        ii = id?.data?.id;
+        getLB(ii);
+      }
     }
   }, [leaderboard]);
 
@@ -62,7 +69,7 @@ const Pay = () => {
       console.log(error.message);
     }
   };
-  console.log(leaderboard);
+  // console.log(leaderboard);
 
   return (
     <div className="payment_container">
