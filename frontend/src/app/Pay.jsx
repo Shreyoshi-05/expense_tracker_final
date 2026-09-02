@@ -18,11 +18,9 @@ const Pay = () => {
     init();
   }, []);
 
-  async function getLB(id) {
-
-    console.log(id);
+  async function getLB() {
     try {
-      const ans = await fetch(`https://expense-tracker-backend-8se2.onrender.com/leaderboard/${id}`);
+      const ans = await fetch(`https://expense-tracker-backend-8se2.onrender.com/leaderboard`);
       const data = await ans.json();
       console.log(data);
       setLeaderboardData(data.data);
@@ -34,12 +32,7 @@ const Pay = () => {
 
   useEffect(() => {
     if (leaderboard) {
-      const id = JSON.parse(localStorage.getItem("user"));
-
-      if(id){
-        let ii = id?.data?.id;
-        getLB(ii);
-      }
+      getLB()
     }
   }, [leaderboard]);
 
@@ -128,7 +121,7 @@ const Pay = () => {
 
             {leaderboarddata.map((lb, idx) => {
               return (
-                <div className="leader_item">
+                <div className="leader_item" key={idx}>
                   <span>{lb.name}</span>
                   <span>₹ {lb.saveings}</span>
                 </div>

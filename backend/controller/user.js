@@ -48,40 +48,34 @@ export const loginUserController = async (req, res) => {
 
 export const getLeaderBoard = async (req, res) => {
   try {
-    const { id } = req.params;
-    const user = await User.findOne({
-      where: { id },
-      attributes: ["id", "name"],
-    });
-
-    if (!user) {
-      return giveRes(req, res, 404, "User not found", null, false);
-    };
+    const alluser = await User.findAll({ attributes: ["id", "name"] });
 
     let ans = [];
 
-    let inc = await expenses.findAll({
-      where: { userId: user.id, type: "income" },
-    });
-    let exp = await expenses.findAll({
-      where: { userId: user.id, type: "expense" },
-    });
+    for (let uu of alluser) {
 
-    const ttinc = inc.reduce((sum, item) => sum + item.amount, 0);
-    const ttexp = exp.reduce((sum, item) => sum + item.amount, 0);
+      let inc = await expenses.findAll({
+        where: { userId: uu.id, type: "income" },
+      });
 
-    const saveings = ttinc - ttexp;
+      let exp = await expenses.findAll({
+        where: { userId: uu.id, type: "expense" },
+      });
 
-    ans.push ({
-        name: user.name,
+      const ttinc = inc.reduce((sum, item) => sum + item.amount, 0);
+      const ttexp = exp.reduce((sum, item) => sum + item.amount, 0);
+
+      const saveings = ttinc - ttexp;
+
+      ans.push({
+        name: uu.name,
         saveings,
-      }
-    );
-    
+      });
+    }
+
     ans.sort((a, b) => b.saveings - a.saveings);
 
     return giveRes(req, res, 200, "got all user data", ans, true);
-
   } catch (error) {
     return giveRes(req, res, 500, error.message, null, false);
   }

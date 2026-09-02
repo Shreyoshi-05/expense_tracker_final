@@ -5,4 +5,4 @@ export const userRouter = express();
 
 userRouter.post("/user", postUserController);
 userRouter.post("/userlogin", loginUserController);
-userRouter.get("/leaderboard/:id", getLeaderBoard);
+userRouter.get("/leaderboard", getLeaderBoard);
