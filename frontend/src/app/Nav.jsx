@@ -71,7 +71,7 @@ const Nav = () => {
           <li>
             <div className="avatar avatar-placeholder">
               <div className="bg-primary text-neutral-content w-12 rounded-full">
-                <span>SY</span>
+                <span><Link to="/signin">SY</Link></span>
               </div>
             </div>
           </li>
