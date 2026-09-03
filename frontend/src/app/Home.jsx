@@ -12,7 +12,7 @@ const Home = () => {
   const [summery, setSummery] = useState(0);
   const [all, setAll] = useState([]);
   const [showReport, setShowReport] = useState(false);
-  const [report, setReport] = useState("");
+  const [report, setReport] = useState("Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quis cupiditate veritatis temporibus cumque consequatur quae velit corrupti fugiat cum!");
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
@@ -208,6 +208,7 @@ const Home = () => {
   if (all.length === 0) {
     return <Emptypage />;
   }
+
 
   const pageNo = all.length / 3;
 
