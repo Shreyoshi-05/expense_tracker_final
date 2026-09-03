@@ -178,7 +178,11 @@ const Home = () => {
     try {
       const ans = await fetch (`https://expense-tracker-backend-8se2.onrender.com/ask/${uid}`);
       const data = await ans.json();
+      if (data.success) {
       setReport(data.data);
+    } else {
+      console.log("AI ERROR:", data.message);
+    }
     } catch (error) {
       toast.error(error.message)
     }
