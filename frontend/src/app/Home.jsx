@@ -12,7 +12,9 @@ const Home = () => {
   const [summery, setSummery] = useState(0);
   const [all, setAll] = useState([]);
   const [showReport, setShowReport] = useState(false);
-  const [report, setReport] = useState("Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quis cupiditate veritatis temporibus cumque consequatur quae velit corrupti fugiat cum!");
+  const [report, setReport] = useState(
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quis cupiditate veritatis temporibus cumque consequatur quae velit corrupti fugiat cum!",
+  );
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
@@ -176,15 +178,20 @@ const Home = () => {
 
   async function getReport(uid) {
     try {
-      const ans = await fetch (`https://expense-tracker-backend-8se2.onrender.com/ask/${uid}`);
+      const ans = await fetch(
+        `https://expense-tracker-backend-8se2.onrender.com/ask/${uid}`,
+      );
+      console.log("REPORT STATUS:", ans.status);
+      console.log("REPORT TYPE:", ans.headers.get("content-type"));
+
       const data = await ans.json();
-      if (data.success) {
+
+      console.log("AI RESPONSE:", data);
+
       setReport(data.data);
-    } else {
-      console.log("AI ERROR:", data.message);
-    }
+      
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.message);
     }
   }
 
@@ -203,7 +210,7 @@ const Home = () => {
             getIncomeHandler(userId),
             getAllData(userId),
             getRemain(userId),
-            getReport(userId)
+            getReport(userId),
           ]);
         }
       } catch (error) {
@@ -223,7 +230,6 @@ const Home = () => {
   if (all.length === 0) {
     return <Emptypage />;
   }
-
 
   const pageNo = all.length / 3;
 
