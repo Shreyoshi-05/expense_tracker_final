@@ -280,7 +280,8 @@ const Home = () => {
               </div>
 
               <div className="ai_report_content">
-                {report.replace(/\\n+/g, "\n").replace(/\*\*/g, "")}
+                {/* //report */}
+                {report}
               </div>
             </div>
           )}
