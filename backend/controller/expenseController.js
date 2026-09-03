@@ -104,7 +104,7 @@ export const askController = async (req, res) => {
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
     const interaction = await ai.interactions.create({
-      model: "gemini-3.6-flash",
+      model: "gemini-2.5-flash-lite",
       input: `
       You are a financial advisor.
 

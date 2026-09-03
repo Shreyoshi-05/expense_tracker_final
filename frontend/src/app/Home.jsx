@@ -174,6 +174,16 @@ const Home = () => {
     }
   }
 
+  async function getReport(uid) {
+    try {
+      const ans = await fetch (`https://expense-tracker-backend-8se2.onrender.com/ask/${uid}`);
+      const data = await ans.json();
+      setReport(data.data);
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -189,6 +199,7 @@ const Home = () => {
             getIncomeHandler(userId),
             getAllData(userId),
             getRemain(userId),
+            getReport(userId)
           ]);
         }
       } catch (error) {
