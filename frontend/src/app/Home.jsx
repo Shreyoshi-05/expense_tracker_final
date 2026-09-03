@@ -13,7 +13,7 @@ const Home = () => {
   const [all, setAll] = useState([]);
   const [showReport, setShowReport] = useState(false);
   const [report, setReport] = useState(
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quis cupiditate veritatis temporibus cumque consequatur quae velit corrupti fugiat cum!",
+    "",
   );
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -189,7 +189,7 @@ const Home = () => {
       console.log("AI RESPONSE:", data);
 
       setReport(data.data);
-      
+
     } catch (error) {
       toast.error(error.message);
     }
@@ -291,17 +291,9 @@ const Home = () => {
             <div className="ai_report">
               <div className="ai_report_header">
                 <h3>✨ AI Financial Report</h3>
-
-                <button
-                  className="ai_close_btn"
-                  onClick={() => setShowReport(false)}
-                >
-                  ×
-                </button>
               </div>
 
               <div className="ai_report_content">
-                {/* //report */}
                 {report}
               </div>
             </div>
