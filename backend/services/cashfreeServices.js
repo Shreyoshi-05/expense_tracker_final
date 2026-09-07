@@ -28,7 +28,7 @@ export const createOrder = async (
           customer_phone: CustomerPhone,
         },
         order_meta: {
-          return_url: "http://localhost:5173/pay/success",
+          return_url: "https://expense-tracker-final-delta.vercel.app/pay",
         },
       },
       {

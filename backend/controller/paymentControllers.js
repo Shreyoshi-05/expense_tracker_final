@@ -6,8 +6,11 @@ export const processPayment = async (req, res) => {
   // orderCurrency = "IND",
   // customerID,
   // CustomerPhone,
+  const {amount} = req.body;
+
+
   const orderId = Date.now();
-  const orderAmount = 2000;
+  const orderAmount = Number(amount);
   const orderCurrency = "INR";
   const customerID = "1";
   const CustomerPhone = "9876543210";
@@ -27,6 +30,7 @@ export const processPayment = async (req, res) => {
     })
   } catch (error) {
     console.log(error.message);
+    
     return res.json({
       success:false,
       message:error.message

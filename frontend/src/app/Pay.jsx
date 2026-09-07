@@ -39,13 +39,19 @@ const Pay = () => {
   const doPayment = async () => {
     try {
       const res = await fetch("https://expense-tracker-backend-8se2.onrender.com/create-order", {
-        method: "post",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount: Number(amount),
+        }),
       });
       const data = await res.json();
       console.log(data);
 
       if (!cashfree) {
-        toString.error("SDK not loaded yet");
+        toast.error("SDK not loaded yet");
         return;
       }
 
@@ -54,10 +60,13 @@ const Pay = () => {
         return;
       }
 
-      cashfree.checkout({
+      await cashfree.checkout({
         paymentSessionId: data.paymentSessionId,
-        redirectTarget: "_modal",
+        // redirectTarget: "_modal",
+        redirectTarget: "_self",
       });
+
+      setLeaderBoard(true);
     } catch (error) {
       console.log(error.message);
     }
