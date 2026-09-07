@@ -66,12 +66,20 @@ const Pay = () => {
         redirectTarget: "_self",
       });
 
-      setLeaderBoard(true);
     } catch (error) {
       console.log(error.message);
     }
   };
   // console.log(leaderboard);
+
+  useEffect(() => {
+  const params = new URLSearchParams(window.location.search);
+  const orderId = params.get("order_id");
+
+  if (orderId) {
+    setLeaderBoard(true);
+  }
+}, []);
 
   return (
     <div className="payment_container">
