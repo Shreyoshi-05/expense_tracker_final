@@ -1,5 +1,4 @@
 import React from "react";
-// import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import "../css/Home.css";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -12,11 +11,10 @@ const Home = () => {
   const [summery, setSummery] = useState(0);
   const [all, setAll] = useState([]);
   const [showReport, setShowReport] = useState(false);
-  const [report, setReport] = useState(
-    "",
-  );
+  const [report, setReport] = useState("");
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
   const categoryIcons = {
     food: "🍔",
@@ -28,6 +26,7 @@ const Home = () => {
     shopping: "🛍️",
     others: "📦",
   };
+
   const categoryColors = {
     food: "#ff9800",
     transportation: "#2196f3",
@@ -38,79 +37,6 @@ const Home = () => {
     shopping: "#3f51b5",
     others: "#607d8b",
   };
-
-  // async function getExpenseHandler(userId) {
-  //   try {
-  //     const ans = await fetch(`https://expense-tracker-backend-8se2.onrender.com/all/expense/${userId}`);
-  //     const exp = await ans.json();
-  //     // console.log(exp.data);
-  //     setExpenses(exp.data);
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // }
-
-  // async function getIncomeHandler(userId) {
-  //   try {
-  //     const ans = await fetch(`https://expense-tracker-backend-8se2.onrender.com/all/income/${userId}`);
-  //     const exp = await ans.json();
-  //     // console.log(exp.data);
-  //     setIncome(exp.data);
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // }
-
-  // async function getAllData(userId) {
-  //   try {
-  //     const ans = await fetch(`https://expense-tracker-backend-8se2.onrender.com/allList/${userId}`);
-  //     const exp = await ans.json();
-  //     console.log(exp.data);
-  //     setAll(exp.data);
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // }
-  // console.log(report);
-
-  // async function getRemain(userId) {
-  //   try {
-  //     const ans = await fetch(`https://expense-tracker-backend-8se2.onrender.com/summery/${userId}`);
-  //     const exp = await ans.json();
-  //     // console.log(exp.data);
-  //     setSummery(exp.data);
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // }
-
-  // async function getReport(userId) {
-  //   try {
-  //     const data = await fetch(`https://expense-tracker-backend-8se2.onrender.com/ask/${userId}`);
-  //     const ans = await data.json();
-  //     console.log(ans);
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // }
-
-  // async function handleDelete(id) {
-  //   try {
-  //     const data = await fetch(`https://expense-tracker-backend-8se2.onrender.com/delete/${id}`, {
-  //       method: "put",
-  //     });
-  //     const ans = await data.json();
-  //     console.log(ans);
-  //     if (ans.success) {
-  //       toast.success(ans.message);
-  //       setAll((pre) => pre.filter((item) => item.id != id));
-  //     } else {
-  //       toast.error(ans.message);
-  //     }
-  //   } catch (error) {
-  //     toast.error(error.message);
-  //   }
-  // }
 
   async function getExpenseHandler(userId) {
     try {
@@ -181,6 +107,7 @@ const Home = () => {
       const ans = await fetch(
         `https://expense-tracker-backend-8se2.onrender.com/ask/${uid}`,
       );
+
       console.log("REPORT STATUS:", ans.status);
       console.log("REPORT TYPE:", ans.headers.get("content-type"));
 
@@ -189,7 +116,29 @@ const Home = () => {
       console.log("AI RESPONSE:", data);
 
       setReport(data.data);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
 
+  async function handleDelete(id) {
+    try {
+      const data = await fetch(
+        `https://expense-tracker-backend-8se2.onrender.com/delete/${id}`,
+        {
+          method: "put",
+        },
+      );
+
+      const ans = await data.json();
+
+      if (ans.success) {
+        toast.success(ans.message);
+
+        setAll((pre) => pre.filter((item) => item.id != id));
+      } else {
+        toast.error(ans.message);
+      }
     } catch (error) {
       toast.error(error.message);
     }
@@ -231,18 +180,26 @@ const Home = () => {
     return <Emptypage />;
   }
 
-  const pageNo = all.length / 3;
+  const filteredExpenses = all.filter((item) => {
+    const searchValue = search.toLowerCase().trim();
+
+    return (
+      item.title?.toLowerCase().includes(searchValue) ||
+      item.category?.toLowerCase().includes(searchValue) ||
+      item.notes?.toLowerCase().includes(searchValue) ||
+      item.type?.toLowerCase().includes(searchValue)
+    );
+  });
+
+  const pageNo = Math.ceil(filteredExpenses.length / 3);
 
   return (
     <div className="home_container">
       <Toaster />
+
       <div className="inside_container">
         <div className="home_hero">
-          <div
-            className="card bg-base-100 w-96 shadow-sm"
-            // style={{ padding: "2rem", background: "#D1FAE5" }}
-            className="card income_card"
-          >
+          <div className="card income_card">
             <div className="card-body">
               <h1 className="card-title">💰 Income</h1>
               <h3>$ {income}</h3>
@@ -250,11 +207,7 @@ const Home = () => {
             </div>
           </div>
 
-          <div
-            className="card bg-base-100 w-96 shadow-sm"
-            // style={{ padding: "2rem", background: "#FFA6A6" }}
-            className="card expense_card"
-          >
+          <div className="card expense_card">
             <div className="card-body">
               <h2 className="card-title">💸 Expenses</h2>
               <h3>$ {expense}</h3>
@@ -271,7 +224,6 @@ const Home = () => {
           <div className="balance_content">
             <div className="balance_left">
               <p>Current Balance 💰</p>
-
               <h3>₹ {summery}</h3>
             </div>
 
@@ -293,116 +245,125 @@ const Home = () => {
                 <h3>✨ AI Financial Report</h3>
               </div>
 
-              <div className="ai_report_content">
-                {report}
-              </div>
+              <div className="ai_report_content">{report}</div>
             </div>
           )}
         </div>
 
         <div className="show_all_expenses">
-          <h4>All Expenses</h4>
+          <div className="expenses_header">
+            <h4>All Expenses</h4>
 
-          {all.slice(page * 3 - 3, page * 3).map((item) => (
-            <div key={item.id} className="todo_card">
-              {/* LEFT: icon with background */}
-              <div
-                className="todo_left"
-                style={{
-                  background: categoryColors[item.category],
+            <div className="expense_search_box">
+              <span className="search_icon">🔍</span>
+
+              <input
+                type="text"
+                placeholder="Search expenses..."
+                className="expense_search_input"
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setPage(1);
                 }}
-              >
-                <span>{categoryIcons[item.category] || "📦"}</span>
-              </div>
-
-              {/* MIDDLE */}
-              <div className="todo_middle">
-                <div className="todo_top">
-                  <h4>{item.title}</h4>
-                  <span className="todo_date">
-                    {new Date(item.date).toDateString()}
-                  </span>
-                </div>
-
-                <p className="todo_notes">{item.notes}</p>
-
-                <span
-                  className="todo_category"
-                  style={{
-                    color: categoryColors[item.category],
-                  }}
-                >
-                  {item.category.toUpperCase()}
-                </span>
-              </div>
-
-              {/* RIGHT */}
-              <div className="todo_right">
-                <p
-                  className={`todo_amount ${
-                    item.type === "expense" ? "expense" : "income"
-                  }`}
-                >
-                  {item.type === "expense" ? "-" : "+"} ₹{item.amount}
-                </p>
-                <button
-                  className="delete_btn"
-                  style={{ padding: "0.5rem", borderRadius: "50%" }}
-                  onClick={() => handleDelete(item.id)}
-                >
-                  🗑️
-                </button>
-              </div>
-            </div>
-          ))}
-
-          <div className="page_container">
-            <div className="pagination">
-              {/* <span
-                onClick={() => setPage(1)}
-                class={page == 1 ? "page-number active" : "page-number"}
-              >
-                1
-              </span>
-              <span
-                onClick={() => setPage(2)}
-                class={page == 2 ? "page-number active" : "page-number"}
-              >
-                2
-              </span>
-              <span
-                onClick={() => setPage(3)}
-                class={page == 3 ? "page-number active" : "page-number"}
-              >
-                3
-              </span>
-              <span onClick={()=>setPage(4)} class={page == 4 ?"page-number active":"page-number"}>4</span> */}
-
-              <span
-                onClick={() => {
-                  if (page > 1) {
-                    setPage((pre) => pre - 1);
-                  }
-                }}
-                class="page-number"
-              >
-                {"<"}
-              </span>
-
-              <span class="page-number">Page {page}</span>
-
-              <span
-                onClick={() => {
-                  if (page < pageNo) {
-                    setPage((p) => p + 1);
-                  }
-                }}
-                class="page-number"
-              >
-                {">"}
-              </span>
+              />
             </div>
           </div>
+
+          {filteredExpenses.length === 0 ? (
+            <p className="no_search_result">
+              No matching expenses found 🔍
+            </p>
+          ) : (
+            filteredExpenses
+              .slice(page * 3 - 3, page * 3)
+              .map((item) => (
+                <div key={item.id} className="todo_card">
+                  <div
+                    className="todo_left"
+                    style={{
+                      background: categoryColors[item.category],
+                    }}
+                  >
+                    <span>{categoryIcons[item.category] || "📦"}</span>
+                  </div>
+
+                  <div className="todo_middle">
+                    <div className="todo_top">
+                      <h4>{item.title}</h4>
+
+                      <span className="todo_date">
+                        {new Date(item.date).toDateString()}
+                      </span>
+                    </div>
+
+                    <p className="todo_notes">{item.notes}</p>
+
+                    <span
+                      className="todo_category"
+                      style={{
+                        color: categoryColors[item.category],
+                      }}
+                    >
+                      {item.category.toUpperCase()}
+                    </span>
+                  </div>
+
+                  <div className="todo_right">
+                    <p
+                      className={`todo_amount ${
+                        item.type === "expense" ? "expense" : "income"
+                      }`}
+                    >
+                      {item.type === "expense" ? "-" : "+"} ₹{item.amount}
+                    </p>
+
+                    <button
+                      className="delete_btn"
+                      style={{
+                        padding: "0.5rem",
+                        borderRadius: "50%",
+                      }}
+                      onClick={() => handleDelete(item.id)}
+                    >
+                      🗑️
+                    </button>
+                  </div>
+                </div>
+              ))
+          )}
+
+          {filteredExpenses.length > 0 && (
+            <div className="page_container">
+              <div className="pagination">
+                <span
+                  onClick={() => {
+                    if (page > 1) {
+                      setPage((pre) => pre - 1);
+                    }
+                  }}
+                  className="page-number"
+                >
+                  {"<"}
+                </span>
+
+                <span className="page-number">
+                  Page {page}
+                </span>
+
+                <span
+                  onClick={() => {
+                    if (page < pageNo) {
+                      setPage((pre) => pre + 1);
+                    }
+                  }}
+                  className="page-number"
+                >
+                  {">"}
+                </span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
