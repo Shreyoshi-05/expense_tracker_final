@@ -86,8 +86,9 @@ const Pay = () => {
       <div className="payment_inside">
         {/* BALANCE CARD */}
         <div className="wallet_card">
-          <h2>Wallet Balance</h2>
-          <p>Available balance</p>
+          <div className="ledaerbord_hd">
+            🏆 Unlock the Leaderboard
+          </div>
           <h3 className="wallet_amount">₹ 5000</h3>
         </div>
 
