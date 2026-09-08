@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Emptypage from "./Emptypage";
+import NoTransitions from "./NoTransitions";
 
 const Home = () => {
   const [income, setIncome] = useState(0);
@@ -177,7 +178,7 @@ const Home = () => {
   }
 
   if (all.length === 0) {
-    return <Emptypage />;
+    return <NoTransitions />;
   }
 
   const filteredExpenses = all.filter((item) => {

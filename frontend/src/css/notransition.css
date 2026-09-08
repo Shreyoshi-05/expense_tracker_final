@@ -1,0 +1,268 @@
+/* ============================= */
+/* EMPTY TRANSACTION PAGE */
+/* ============================= */
+
+.empty_transaction_page {
+  width: 100%;
+  min-height: calc(100vh - 70px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px 20px;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(168, 85, 247, 0.12),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(236, 72, 153, 0.1),
+      transparent 35%
+    ),
+    #f8f8fc;
+}
+
+
+/* MAIN CARD */
+
+.empty_transaction_card {
+  width: 100%;
+  max-width: 650px;
+
+  padding: 45px 40px;
+
+  background: rgba(255, 255, 255, 0.82);
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+
+  border: 1px solid rgba(139, 92, 246, 0.15);
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 20px 50px rgba(76, 29, 149, 0.08);
+
+  text-align: center;
+}
+
+
+/* ICON */
+
+.empty_icon_container {
+  width: 90px;
+  height: 90px;
+
+  margin: 0 auto 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    135deg,
+    #ede9fe,
+    #fce7f3
+  );
+}
+
+.empty_wallet {
+  font-size: 42px;
+}
+
+
+/* TITLE */
+
+.empty_transaction_card h1 {
+  margin: 0 0 12px;
+
+  font-size: 30px;
+  font-weight: 700;
+
+  color: #2d2640;
+}
+
+
+/* DESCRIPTION */
+
+.empty_description {
+  max-width: 500px;
+
+  margin: 0 auto 30px;
+
+  color: #777080;
+
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+
+/* INCOME + EXPENSE INFORMATION */
+
+.empty_info {
+  width: 100%;
+
+  display: flex;
+  gap: 15px;
+
+  margin-bottom: 30px;
+}
+
+.empty_info_item {
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  padding: 18px;
+
+  text-align: left;
+
+  background: rgba(245, 243, 255, 0.75);
+
+  border: 1px solid #ede9fe;
+
+  border-radius: 15px;
+}
+
+.empty_info_item > span {
+  font-size: 27px;
+}
+
+.empty_info_item h3 {
+  margin: 0 0 4px;
+
+  font-size: 15px;
+
+  color: #403650;
+}
+
+.empty_info_item p {
+  margin: 0;
+
+  color: #88818e;
+
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+
+/* BUTTON */
+
+.add_first_transaction {
+  border: none;
+
+  padding: 14px 25px;
+
+  border-radius: 12px;
+
+  background: linear-gradient(
+    135deg,
+    #8b5cf6,
+    #c084fc
+  );
+
+  color: white;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.add_first_transaction:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 25px rgba(139, 92, 246, 0.25);
+}
+
+
+/* ============================= */
+/* TABLET */
+/* ============================= */
+
+@media (max-width: 768px) {
+
+  .empty_transaction_page {
+    padding: 25px 18px;
+  }
+
+  .empty_transaction_card {
+    max-width: 550px;
+    padding: 35px 25px;
+  }
+
+  .empty_transaction_card h1 {
+    font-size: 26px;
+  }
+
+  .empty_info {
+    flex-direction: column;
+  }
+}
+
+
+/* ============================= */
+/* MOBILE */
+/* ============================= */
+
+@media (max-width: 480px) {
+
+  .empty_transaction_page {
+    min-height: calc(100vh - 60px);
+
+    padding: 20px 14px;
+  }
+
+  .empty_transaction_card {
+    padding: 30px 18px;
+
+    border-radius: 18px;
+  }
+
+  .empty_icon_container {
+    width: 72px;
+    height: 72px;
+
+    margin-bottom: 18px;
+  }
+
+  .empty_wallet {
+    font-size: 34px;
+  }
+
+  .empty_transaction_card h1 {
+    font-size: 23px;
+  }
+
+  .empty_description {
+    font-size: 14px;
+
+    margin-bottom: 24px;
+  }
+
+  .empty_info_item {
+    padding: 15px;
+  }
+
+  .add_first_transaction {
+    width: 100%;
+
+    padding: 14px 15px;
+
+    font-size: 14px;
+  }
+}

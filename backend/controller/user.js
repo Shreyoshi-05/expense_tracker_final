@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize";
+import { Op, Sequelize } from "sequelize";
 import { giveRes } from "../err/err.js";
 import { expenses } from "../table/expenses.js";
 import { User } from "../table/userTable.js";
@@ -7,12 +7,32 @@ import bcrypt from "bcrypt";
 import crypto from "crypto";
 import { passInfo } from "../table/pass.js";
 
+
+
 export const postUserController = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
       return giveRes(req, res, 400, "all fileds needed", false);
+    }
+
+    const existingUser = await User.findOne({where:{
+      [Op.or]:[
+        {name},
+        {email}
+      ]
+    }});
+
+    if (existingUser) {
+      return giveRes(
+        req,
+        res,
+        400,
+        "Name or email already exists",
+        null,
+        false
+      );
     }
 
     const hashpass = await bcrypt.hash(password, 10);
