@@ -17,7 +17,7 @@ const Signin = () => {
     try {
       console.log(name, email, password);
 
-      const ans = await fetch("https://expense-tracker-backend-8se2.onrender.com/user", {
+      const ans = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user`, {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),

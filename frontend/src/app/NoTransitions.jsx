@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../css/notransition.css"
 
 const NoTransitions = () => {
@@ -36,12 +36,18 @@ const NoTransitions = () => {
           </div>
         </div>
 
+
+        <Link to={"/add"}>
         <button
           className="add_first_transaction"
           onClick={() => navigate("/add")}
         >
           + Add Your First Transaction
         </button>
+        </Link>
+
+
+        
 
       </div>
     </div>

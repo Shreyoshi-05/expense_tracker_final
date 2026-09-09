@@ -29,7 +29,8 @@ export const createOrder = async (
         },
         order_meta: {
           // return_url: "https://expense-tracker-final-delta.vercel.app/pay",
-          return_url: `https://expense-tracker-final-delta.vercel.app/pay?order_id=${orderId}`,
+          // return_url: `https://expense-tracker-final-delta.vercel.app/pay?order_id=${orderId}`,
+          return_url: `${process.env.FRONTEND_URL}/pay?order_id=${orderId}`,
         },
       },
       {

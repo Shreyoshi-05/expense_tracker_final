@@ -31,7 +31,7 @@ const Add = () => {
     }
 
     try {
-      const ans = await fetch("https://expense-tracker-backend-8se2.onrender.com/expense",{
+      const ans = await fetch(`${import.meta.env.VITE_BACKEND_URL}/expense`,{
         "method":"post",
         "headers":{"Content-Type":"application/json"},
         "body":JSON.stringify(payload)
@@ -121,7 +121,6 @@ const Add = () => {
                 id="category"
                 name="category"
                 value={input.category}
-                name="category"
                 onChange={(e) =>
                   setInput({ ...input, [e.target.name]: e.target.value })
                 }

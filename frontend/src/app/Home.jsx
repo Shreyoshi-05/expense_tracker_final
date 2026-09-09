@@ -42,7 +42,7 @@ const Home = () => {
   async function getExpenseHandler(userId) {
     try {
       const ans = await fetch(
-        `https://expense-tracker-backend-8se2.onrender.com/all/expense/${userId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/all/expense/${userId}`,
       );
 
       console.log("EXPENSE STATUS:", ans.status);
@@ -58,7 +58,7 @@ const Home = () => {
   async function getIncomeHandler(userId) {
     try {
       const ans = await fetch(
-        `https://expense-tracker-backend-8se2.onrender.com/all/income/${userId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/all/income/${userId}`,
       );
 
       console.log("INCOME STATUS:", ans.status);
@@ -74,7 +74,7 @@ const Home = () => {
   async function getAllData(userId) {
     try {
       const ans = await fetch(
-        `https://expense-tracker-backend-8se2.onrender.com/allList/${userId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/allList/${userId}`,
       );
 
       console.log("ALL STATUS:", ans.status);
@@ -90,7 +90,7 @@ const Home = () => {
   async function getRemain(userId) {
     try {
       const ans = await fetch(
-        `https://expense-tracker-backend-8se2.onrender.com/summery/${userId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/summery/${userId}`,
       );
 
       console.log("SUMMARY STATUS:", ans.status);
@@ -106,7 +106,7 @@ const Home = () => {
   async function getReport(uid) {
     try {
       const ans = await fetch(
-        `https://expense-tracker-backend-8se2.onrender.com/ask/${uid}`,
+        `${import.meta.env.VITE_BACKEND_URL}/ask/${uid}`,
       );
 
       console.log("REPORT STATUS:", ans.status);
@@ -125,7 +125,7 @@ const Home = () => {
   async function handleDelete(id) {
     try {
       const data = await fetch(
-        `https://expense-tracker-backend-8se2.onrender.com/delete/${id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/delete/${id}`,
         {
           method: "put",
         },

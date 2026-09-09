@@ -20,7 +20,7 @@ const Pay = () => {
 
   async function getLB() {
     try {
-      const ans = await fetch(`https://expense-tracker-backend-8se2.onrender.com/leaderboard`);
+      const ans = await fetch(`${import.meta.env.VITE_BACKEND_URL}/leaderboard`);
       const data = await ans.json();
       console.log(data);
       setLeaderboardData(data.data);
@@ -38,7 +38,7 @@ const Pay = () => {
 
   const doPayment = async () => {
     try {
-      const res = await fetch("https://expense-tracker-backend-8se2.onrender.com/create-order", {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/create-order`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

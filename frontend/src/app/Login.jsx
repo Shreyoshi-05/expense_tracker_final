@@ -13,7 +13,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const ans = await fetch("https://expense-tracker-backend-8se2.onrender.com/userlogin", {
+      const ans = await fetch(`${import.meta.env.VITE_BACKEND_URL}/userlogin`, {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -45,7 +45,7 @@ const Login = () => {
     }
 
     try {
-      const ans = await fetch("https://expense-tracker-backend-8se2.onrender.com/password/forgot",{
+      const ans = await fetch(`${import.meta.env.VITE_BACKEND_URL}/password/forgot`,{
         method:"post",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({email})

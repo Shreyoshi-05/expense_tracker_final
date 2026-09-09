@@ -4,6 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 import "../css/form.css";
 
 const Contact = () => {
+  
   const onSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -13,7 +14,7 @@ const Contact = () => {
     const object = Object.fromEntries(formData);
     const json = JSON.stringify(object);
 
-    const res = await fetch("https://expense-tracker-backend-8se2.onrender.com", {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
